@@ -5,7 +5,7 @@ Swift APNS client built by wrapping `libcurl`'s _easy_ interface.
 
 ## Example usage
 
-```
+```swift
 import EasyAPNS
 
 class FeedbackCollector: EasyApnsDelegate {
