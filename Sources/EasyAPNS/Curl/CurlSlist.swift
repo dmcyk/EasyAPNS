@@ -7,6 +7,9 @@
 //
 import cURL
 
+/**
+ * Swift curl's slist wrapper 
+ */
 public final class CurlSlist {
     public private(set) var rawSlist: UnsafeMutablePointer<curl_slist>! = nil
     
@@ -23,7 +26,10 @@ public final class CurlSlist {
         rawSlist = slist
     }
     
-    public func append(element: String) {
+    /**
+     * append element
+     */
+    public func append(_ element: String) {
         rawSlist = curl_slist_append(rawSlist, element)
     }
     

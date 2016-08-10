@@ -8,6 +8,9 @@
 
 import JSON
 
+/**
+ * Message wrapper in `EasyAPNS` per device token, contains information about sending status of the linked message
+ */
 public struct MessageEnvelope {
     
     public enum Status: Equatable {
@@ -63,6 +66,11 @@ public struct MessageEnvelope {
             }
         }
         
+        
+        /**
+         * rawValue initialization only available for given APNS's incorrect response codes, other possibilities are ought 
+         * to be set manually
+         */
         init(rawValue: Int) {
             switch rawValue {
             case 403:
@@ -83,22 +91,41 @@ public struct MessageEnvelope {
                 self = .unknown
             }
         }
+        
+        public static func ==(lhs: Status, rhs: Status) -> Bool {
+            return lhs.rawValue == rhs.rawValue
+        }
     }
     
+    /**
+     * message referenced by envelope
+     */
     public let message: Message
+    
+    /**
+     * device token that given envelope is supposed to be sent to
+     */
     public let deviceToken: String
+    
+    /**
+     * current envelope's status
+     */
     public internal(set) var status: Status
+    
+    /**
+     * current send retries count
+     */
     public internal(set) var retriesCount: Int = 0
     
+    /**
+     * initialize using given message and one of it's choosen device token
+     */
     public init(_ message: Message, deviceToken: String) {
         self.deviceToken = deviceToken
         self.message = message
         self.status = .notSend
         
     }
-}
-
-public func ==(lhs: MessageEnvelope.Status, rhs: MessageEnvelope.Status) -> Bool {
-    return lhs.rawValue == rhs.rawValue
+    
 }
 

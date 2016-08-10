@@ -31,7 +31,6 @@
  the front of the queue.
  Enqueuing and dequeuing are O(1) operations.
  */
-
 public struct Queue<T> {
     var array = [T?]()
     var head = 0
