@@ -8,7 +8,10 @@
 
 internal extension String {
     
-    mutating func trimHTTPLine() {
+    /**
+     * HTTP entries end with \r\n, which this method trims 
+     */
+    mutating func trimHTTPNewline() {
         if let preEndLineIndex = index(endIndex, offsetBy: -2, limitedBy: startIndex) {
             removeSubrange(Range<Index>(uncheckedBounds: (preEndLineIndex,endIndex)))
             

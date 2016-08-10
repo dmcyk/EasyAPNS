@@ -7,6 +7,9 @@
 //
 import cURL
 
+/**
+ * Swift wrapper for curl_getinfo options
+ */
 public enum CurlGetOption {
     case httpResponseCode, headerSize
     
@@ -24,16 +27,26 @@ public enum CurlGetOption {
     }
 }
 
+/**
+ * Swift wrapper for curl_setopt options
+ */
 public enum CurlSetOption: Hashable {
     case url, port, httpHeader,
     post, postFields, timeout,
     useSsl, sslEngineDefault, sslVerifyPeer, sslCert, passPhrase, caPath,
     header, httpVersion, verbose, userAgent
     
+    /**
+     * curl's raw number option
+     */
     public var rawValue: UInt32 {
         return raw.rawValue
     }
     
+    
+    /**
+     * raw CURLOption value
+     */
     public var raw: CURLoption {
         switch self {
         case .url:
@@ -44,15 +57,15 @@ public enum CurlSetOption: Hashable {
             return CURLOPT_HTTPHEADER
         case .post:
             return CURLOPT_POST
-        case postFields:
+        case .postFields:
             return CURLOPT_COPYPOSTFIELDS
-        case timeout:
+        case .timeout:
             return CURLOPT_TIMEOUT
         case .useSsl:
             return CURLOPT_USE_SSL
         case .sslEngineDefault:
             return CURLOPT_SSLENGINE_DEFAULT
-        case sslVerifyPeer:
+        case .sslVerifyPeer:
             return CURLOPT_SSL_VERIFYPEER
         case .sslCert:
             return CURLOPT_SSLCERT
@@ -78,15 +91,33 @@ public enum CurlSetOption: Hashable {
     
 }
 
+/**
+ * curl types enum, to allow setting many options at once
+ */
 public enum CurlOptionType {
     case int(Int), upInt8(UnsafePointer<Int8>), int64(Int64),
     umpCurlSlist(UnsafeMutablePointer<curl_slist>), umpVoid(UnsafeMutablePointer<Void>)
 }
 
+
+/**
+ * structural representation of raw curl response
+ */
 public struct CurlResponse {
-    public static let CODE_NOT_SET = -1
-    public var code: Int = CurlResponse.CODE_NOT_SET
+    
+    /**
+     * -1 stands for code not yet set
+     */
+    public var code: Int = -1
+    
+    /**
+     * parsed array of headers
+     */
     public var headers: [String] = []
+    
+    /**
+     * response body
+     */
     public var body = String()
     let parseMode: CurlParse
     
@@ -96,11 +127,41 @@ public struct CurlResponse {
     
 }
 
+/**
+ * curl response parsing mode
+ */
 public enum CurlParse {
-    case none, trimNewLineCharacters
+    
+    /// no parsing, keep data received from curl
+    case none
+    
+    /// trim new HTTP's new line characters
+    case trimNewLineCharacters
 }
 
-public struct CurlErr: ErrorProtocol {
-    var err: UInt32
-    var description: String
+/**
+ * representation of curl's error
+ */
+public struct CurlErr: Error {
+    
+    /**
+     * curl's error code
+     */
+    public let err: UInt32
+    
+    /**
+     *  error description using curl_easy_strerror
+     */
+    public let description: String
+    
+    init(err: UInt32, description: String) {
+        self.err = err
+        self.description = description
+    }
+    
+    
+    init(err: UInt32, curlCode: CURLcode) {
+        self.err = err
+        self.description = String(cString: curl_easy_strerror(curlCode))
+    }
 }

@@ -10,18 +10,36 @@ import cURL
 import libc
 @_exported import JSON
 
-
-
+/**
+ * Provide messages sending feedback
+ */
 public protocol EasyApnsDelegate: class {
-    func sendingFeedback(messageEnvelope: MessageEnvelope)
+    
+    /**
+    * feedback for messages being send, called after every call of given `MessageEnvelope`
+    */
+    func sendingFeedback(_ messageEnvelope: MessageEnvelope)
 }
 
+/**
+ * Class responsible for handling connection to the APNS server and handling messages sending
+ */
 public final class EasyApns: SecureHttp2Con {
     
-    public enum Error: ErrorProtocol {
+   
+    /**
+     * EasyAPNS possible errors
+     */
+    public enum Error: Swift.Error {
+        /**
+         * curl slist for headers setting error
+         */
         case headerSlist
     }
     
+    /**
+     * Choose between APNS environments - development and production
+     */
     public enum Environment {
         case development, production
         
@@ -38,25 +56,42 @@ public final class EasyApns: SecureHttp2Con {
             return 443
         }
     }
-    
-    public var debug = false {
-        didSet {
-            didSet(debug: debug)
-        }
+
+    private let logger: Logger
+
+    /**
+     * provide information to standard output about occuring actions
+     - parameter val: verbose debug
+     - parameter verboseCurl:Bool if true, sets curl to work in verbose mode
+     */
+    public func logMode(loggerLevel: LoggerLevel, verboseCurl: Bool) {
+        logger.level = loggerLevel
+        curl.set(.verbose, value: verboseCurl)
     }
 
-    func didSet(debug: Bool) {
-        curl.set(.verbose, value: debug)
-    }
-
+    /**
+     * messages retry limit in case of sending failure
+     */
     public var sendRetryTimes: Int = 5
+    
+    
+    /**
+     * microseconds interval to wait after message sending error
+     */
+    public var retryMicrosecondsInterval:useconds_t = 0
+    
+    
     public weak var delegate: EasyApnsDelegate?
 
+    /**
+     * queue for messages to be sent
+     */
     public private(set) var messagesQueue = Queue<MessageEnvelope>()
 
-    public init(environment: Environment, certificatePath: String,
-                timeout: Int = 20) {
-        super.init(certificatePath: certificatePath, timeout: timeout)
+    public init(environment: Environment, certificatePath: String, certificatePassphrase: String?,
+                loggerLevel: LoggerLevel = .none, timeout: Int = 20) {
+        logger = Logger(loggerLevel: loggerLevel)
+        super.init(certificatePath: certificatePath, certificatePassphrase: certificatePassphrase, timeout: timeout)
         url = environment.url
         didSet(url: url)
         port = environment.port
@@ -66,25 +101,33 @@ public final class EasyApns: SecureHttp2Con {
         curl.set(.post, value: true)
     }
 
-
+    /**
+     - parameter message:Message message to enqueue
+     - returns:[MessageEnvelope] array of message envelopes, one for each of message's device token
+     */
     @discardableResult
-    public func enqueue(message: Message) throws -> [MessageEnvelope]  {
+    public func enqueue(_ message: Message) throws -> [MessageEnvelope]  {
         try message.validateDeviceTokens()
         try message.validatePayload()
         
         var envelopes = [MessageEnvelope]()
+        
         for deviceToken in message.deviceTokens {
             let envelope = MessageEnvelope(message, deviceToken: deviceToken)
             messagesQueue.enqueue(envelope)
             envelopes.append(envelope)
         }
-
+        logger.log("Message\(message.customId != nil ? " with customId: \(message.customId!)" : ""), enqueued with \(message.deviceTokens.count) device tokens", type: .info)
         return envelopes
     }
 
-    func send(messageEnvelope: MessageEnvelope) throws -> CurlResponse {
+    /**
+     - parameter messageEnvelope:MessageEnvelope send given message envelope 
+     - returns:CurlResponse received parsed curl's response
+     */
+    func send(_ messageEnvelope: MessageEnvelope) throws -> CurlResponse {
         let message = messageEnvelope.message
-        try message.validate(deviceToken: messageEnvelope.deviceToken)
+        try message.validate(messageEnvelope.deviceToken)
 
         let endPoint = "\(url)/3/device/\(messageEnvelope.deviceToken)"
         curl.set(.url, value: endPoint)
@@ -99,7 +142,7 @@ public final class EasyApns: SecureHttp2Con {
         guard let curlSlist = CurlSlist(fromArray: headers) else {
             throw EasyApns.Error.headerSlist
         }
-        curl.set(.httpHeader, value: curlSlist.rawSlist)
+        curl.setSlist(.httpHeader, value: curlSlist.rawSlist)
 
         curl.set(.postFields, value: message.jsonString)
 
@@ -111,11 +154,15 @@ public final class EasyApns: SecureHttp2Con {
 
     }
 
+    /**
+     * send currently enqueued messages
+     */
     public func sendMessagesInQueue() {
+        logger.log("Sending started with \(messagesQueue.count) messages to send\n", type: .info)
         while var messageEnvelope = messagesQueue.dequeue() {
             var response: CurlResponse? = nil
             do {
-                response = try send(messageEnvelope: messageEnvelope)
+                response = try send(messageEnvelope)
                 if let response = response {
 
 
@@ -127,17 +174,23 @@ public final class EasyApns: SecureHttp2Con {
                             if let apnsIdHeaderEntry = strstr(header, "apns-id") {
                                 let rawApnsId = apnsIdHeaderEntry.advanced(by: 9)
                                 let apnsLength = header.characters.count - apnsIdHeaderEntry.distance(to: rawApnsId)
-                                let raw = UnsafeMutablePointer<CChar>(allocatingCapacity: apnsLength + 1)
-                                raw.initializeFrom(rawApnsId, count: apnsLength)
+                                let raw = UnsafeMutablePointer<CChar>.allocate(capacity: apnsLength + 1)
+                                raw.initialize(from: rawApnsId, count: apnsLength)
                                 raw[apnsLength] = 0
                                 parsedApnsId = String(cString: rawApnsId)
                                 raw.deinitialize()
-                                raw.deallocateCapacity(apnsLength)
-                            }                        }
+                                raw.deallocate(capacity: apnsLength)
+                            }
+                        }
                         messageEnvelope.status = MessageEnvelope.Status.successfullySent(apnsId: parsedApnsId, rawResponse: response)
+                        if let parsedApnsId = parsedApnsId {
+                            logger.log("Message with id: \(parsedApnsId) successfully sent", type: .info)
+                        } else {
+                            logger.log("Message sent with APNS id parsing error", type: .info)
+                        }
+                        
 
                     case 400:
-                       
                         do {
                             let parsedBody = try JSONParser().parse(data: response.body.data)
                             if let reason = parsedBody["reason"]?.stringValue {
@@ -156,18 +209,34 @@ public final class EasyApns: SecureHttp2Con {
             } catch let e {
                 messageEnvelope.status = MessageEnvelope.Status.sendingFailed(e)
             }
-            if messageEnvelope.status != MessageEnvelope.Status.successfullySent(apnsId: nil, rawResponse: response) {
+            if messageEnvelope.status.rawValue != 0 {
+                
                 messageEnvelope.retriesCount += 1
                 if messageEnvelope.retriesCount < sendRetryTimes {
-                    messagesQueue.enqueue(messageEnvelope)
-                
                     messageEnvelope.status = MessageEnvelope.Status.enqueuedForResend(innerState: messageEnvelope.status)
-                } else {
-                    messageEnvelope.status = MessageEnvelope.Status.sendingFailed(MessageError.exceededSendingLimit)
-                }
-            }
+                    messagesQueue.enqueue(messageEnvelope)
+                    logger.log("Error sending message with app bundle id: \(messageEnvelope.message.appBundle) to device \(messageEnvelope.deviceToken), retries left: \(sendRetryTimes - messageEnvelope.retriesCount)" , type: .error)
+                    if case .enqueuedForResend(let innerState) = messageEnvelope.status, innerState != nil {
+                        logger.log("Enqueued for resend with inner status: \(innerState!) \n", type: .error)
+                    } else {
+                        logger.log("Status: \(messageEnvelope.status)", type: .error)
+                    }
+                    
 
-            delegate?.sendingFeedback(messageEnvelope: messageEnvelope)
+                } else {
+                    messageEnvelope.status = MessageEnvelope.Status.sendingFailed(Message.Error.exceededSendingLimit)
+                    logger.log("Message with app bundle id: \(messageEnvelope.message.appBundle) to device \(messageEnvelope.deviceToken)", type: .error)
+                    logger.log("Finished with error: \(messageEnvelope.status)", type: .error)
+
+                }
+                
+                usleep(retryMicrosecondsInterval)
+            }
+            
+            
+            logger.log("\n\(messagesQueue.count) \(messagesQueue.count == 1 ? "envelope" : "envelopes") left in queue\n\n", type: .info)
+
+            delegate?.sendingFeedback(messageEnvelope)
         }
     }
 }

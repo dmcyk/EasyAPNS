@@ -8,41 +8,69 @@
 import libc
 import JSON
 
-public enum MessageError: ErrorProtocol, CustomStringConvertible {
-    case incorrectDeviceTokenLength, payloadTooLarge, exceededSendingLimit
-    
-    public var description: String {
-        switch self {
-        case .incorrectDeviceTokenLength:
-            return "DeviceToken length must be equal to 64"
-        case .payloadTooLarge:
-            return "PayLoad size must be less or equal than \(Message.maximumSize) bytes"
-        case .exceededSendingLimit:
-            return "Given message has exceeded limit of sending retry"
-        }
-    }
-}
 
+/**
+ * APNS's message representation
+ */
 public struct Message {
+    
+    /**
+     * maximum message size (increased to 4096 with APNS 2 [HTTP/2])
+     */
     public static let maximumSize: UInt = 4096
     
+    /**
+     * device tokens that given message is supposed to be sent to
+     */
     public var deviceTokens: [String]
+    
+    /**
+     * application's bundle id
+     */
     public var appBundle: String
+    
+    /**
+     * custom message id, if nil APNS generates id on it's own
+     */
     public var customId: String? = nil
     
+    /**
+     * alert in given message notification
+     */
     public var alert: Alert? = nil
+    
+    /**
+     * application badge
+     */
     public var badge: Int? = nil
+    
+    /**
+     * sound change
+     */
     public var sound: Sound? = nil
+    
+    /**
+     * additional custom payload
+     */
     public var custom: [String: JSON] = [:]
+    
     public var category: String? = nil
     public var contentAvailable: Bool = false
     
+    /**
+     - parameter deviceToken:String single device token to receive message
+     - parameter appBundle:String app's bundle id that is to receive message
+     */
     public init(deviceToken: String, appBundle: String) throws {
         self.appBundle = appBundle
         self.deviceTokens = [deviceToken]
         try validateDeviceTokens()
     }
     
+    /**
+     - parameter deviceToken:[String] collection device tokens to receive message
+     - parameter appBundle:String app's bundle id that is to receive message
+     */
     public init(deviceTokens: [String], appBundle: String) throws {
         self.appBundle = appBundle
         self.deviceTokens = deviceTokens
@@ -50,26 +78,35 @@ public struct Message {
         
     }
     
+    /**
+     * validate assigned device tokens
+     */
     public func validateDeviceTokens() throws {
         for token in deviceTokens {
-            try validate(deviceToken: token)
+            try validate(token)
         }
     }
     
-    public func validate(deviceToken: String) throws {
+    /**
+     * validate given device token
+     */
+    public func validate(_ deviceToken: String) throws {
         if strlen(deviceToken) != 64 {
-            throw MessageError.incorrectDeviceTokenLength
+            throw Message.Error.incorrectDeviceTokenLength
         }
     }
     
+    /**
+     * validate message payload length
+     */
     public func validatePayload() throws {
         
         if strlen(jsonString) > Message.maximumSize {
-            throw MessageError.payloadTooLarge
+            throw Message.Error.payloadTooLarge
         }
     }
     
-    public var flatAps: [String: JSON] {
+    private var flatAps: [String: JSON] {
         var data = [String: JSON]()
         if let alert = alert {
             data["alert"] = alert.json
@@ -89,13 +126,18 @@ public struct Message {
         return data
     }
     
-    
+    /**
+     * JSON representation
+     */
     public var json: JSON {
         var json = JSON.infer(custom)
         json["aps"] = JSON.infer(flatAps)
         return json
     }
     
+    /**
+     * JSON string representation
+     */
     public var jsonString: String {
         return JSONSerializer().serializeToString(json: json)
     }

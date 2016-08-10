@@ -8,6 +8,27 @@
 
 public extension Message {
     
+    /**
+     * Message's errors
+     */
+    public enum Error: Swift.Error, CustomStringConvertible {
+        case incorrectDeviceTokenLength, payloadTooLarge, exceededSendingLimit
+        
+        public var description: String {
+            switch self {
+            case .incorrectDeviceTokenLength:
+                return "DeviceToken length must be equal to 64"
+            case .payloadTooLarge:
+                return "PayLoad size must be less or equal than \(Message.maximumSize) bytes"
+            case .exceededSendingLimit:
+                return "Exceeded limit of sendveing retry"
+            }
+        }
+    }
+    
+    /**
+     * APNS's message sound representation
+     */
     public enum Sound: CustomStringConvertible {
         case `default`, custom(String)
         
@@ -21,8 +42,14 @@ public extension Message {
         }
     }
     
+    /**
+     * Wrapper to handle APNS's alerts
+     */
     public enum Alert {
         
+        /**
+         * Detailed APNS's alert representation
+         */
         public struct Detailed {
             public var title: String?
             public var body: String?
@@ -59,10 +86,16 @@ public extension Message {
                 return data
             }
             
+            /**
+             * JSON representation
+             */
             public var json: JSON {
                 return JSON.infer(flat)
             }
             
+            /**
+             * JSON string representation
+             */
             public var jsonString: String {
                 return JSONSerializer().serializeToString(json: json)
             }
@@ -82,6 +115,9 @@ public extension Message {
         
         case message(String), detailed(Detailed)
         
+        /**
+         * JSON representation
+         */
         public var json: JSON {
             switch self {
             case .message(let str):
@@ -90,6 +126,10 @@ public extension Message {
                 return alert.json
             }
         }
+        
+        /**
+         * JSON string representation 
+         */
         public var jsonString: String {
             return JSONSerializer().serializeToString(json: json)
             
