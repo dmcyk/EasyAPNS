@@ -8,11 +8,18 @@
 import cURL
 
 /**
- * Swift curl's slist wrapper 
+ Swift curl's slist wrapper
  */
 public final class CurlSlist {
+    
+    /**
+     raw curl's slist pointer
+     */
     public private(set) var rawSlist: UnsafeMutablePointer<curl_slist>! = nil
     
+    /**
+     initialize from Swift's string array
+     */
     public init?(fromArray: [String]) {
         var slist: UnsafeMutablePointer<curl_slist>? = nil
         fromArray.forEach {
@@ -27,7 +34,7 @@ public final class CurlSlist {
     }
     
     /**
-     * append element
+     append element
      */
     public func append(_ element: String) {
         rawSlist = curl_slist_append(rawSlist, element)

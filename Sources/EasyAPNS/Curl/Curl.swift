@@ -10,15 +10,15 @@ import cURL
 /**
  Swift curl wrapper 
  */
-public class Curl {
+public final class Curl {
     
     /**
-     * raw C's curl pointer
+     raw C's curl pointer
      */
     public let rawCurl: UnsafeMutablePointer<Void>
     
     /**
-     * instantiate easy curl lib
+     instantiate curl lib with easy interface
      */
     public init() {
         rawCurl = curl_easy_init()
@@ -28,30 +28,60 @@ public class Curl {
         curl_easy_cleanup(rawCurl)
     }
     
+    /**
+     - parameter option:CurlSetOption option to set
+     - parameter value:Int value for option
+     */
     public func set(_ option: CurlSetOption, value: Int) {
         curl_easy_setopt_long(rawCurl, option.raw, value)
     }
     
+    
+    /**
+     - parameter option:CurlSetOption option to set
+     - parameter value:UnsafePointer<Int8> value for option
+     */
     public func set(_ option: CurlSetOption, value: UnsafePointer<Int8>) {
         curl_easy_setopt_cstr(rawCurl, option.raw, value)
     }
     
+    /**
+     - parameter option:CurlSetOption option to set
+     - parameter value:Int64 value for option
+     */
     public func set(_ option: CurlSetOption, value: Int64) {
         curl_easy_setopt_int64(rawCurl, option.raw, value)
 
     }
+    
+    /**
+     - parameter option:CurlSetOption option to set
+     - parameter value:UnsafeMutablePointer<curl_slist> slist pointer
+     */
     public func setSlist(_ option: CurlSetOption, value: UnsafeMutablePointer<curl_slist>) {
         curl_easy_setopt_slist(rawCurl, option.raw, value)
     }
     
+    /**
+     - parameter option:CurlSetOption curl's option to set
+     - parameter value:UnsafeMutablePointer<Void> value for option
+     */
     public func set(_ option: CurlSetOption, value: UnsafeMutablePointer<Void>) {
         curl_easy_setopt_void(rawCurl, option.raw, value)
     }
     
+    /**
+     - parameter option:CurlSetOption option to set
+     - parameter value:Bool value for option
+     */
     public func set(_ option: CurlSetOption, value: Bool) {
         curl_easy_setopt_long(rawCurl, option.raw, value ? 1 : 0)
     }
     
+    /**
+     - parameter option:CurlSetOption option to set
+     - parameter optionType:CurlOptionType wrapped option value
+     */
     public func set(_ option: CurlSetOption, optionType: CurlOptionType) {
         switch optionType {
         case .int(let val):
@@ -64,16 +94,23 @@ public class Curl {
             setSlist(option, value: val)
         case .umpVoid(let val):
             set(option, value: val)
-        
         }
     }
     
+    /**
+     * helper method, batch options setting
+     - parameter data:[CurlSetOption: CurlOptionType] curl's options data
+     */
     public func set(_ data: [CurlSetOption: CurlOptionType]) {
         data.enumerated().forEach { _, element in
             set(element.key, optionType: element.value)
         }
     }
     
+    /**
+     - parameter option:CurlGetOption option to get
+     - returns:Int value for given option
+     */
     public func get(_ option: CurlGetOption) -> Int {
         var result = 0
         curl_easy_getinfo_long(rawCurl, option.raw, &result)
@@ -137,7 +174,7 @@ public class Curl {
         let start = curl_easy_perform(rawCurl)
         
         if start != CURLE_OK {
-            throw CurlErr(err: start.rawValue, curlCode: start)
+            throw CurlErr(curlCode: start)
         }
         
         if case .trimNewLineCharacters = parseMode {

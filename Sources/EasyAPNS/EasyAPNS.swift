@@ -11,34 +11,49 @@ import libc
 @_exported import JSON
 
 /**
- * Provide messages sending feedback
+ Provide messages sending feedback
  */
 public protocol EasyApnsDelegate: class {
     
     /**
-    * feedback for messages being send, called after every call of given `MessageEnvelope`
-    */
+     - parameter messageEnvelope:MessageEnvelope called after every send attempt - check `MesssageEnvelope.Status`
+     */
     func sendingFeedback(_ messageEnvelope: MessageEnvelope)
+    
+    /**
+     - returns:Bool called when sending error occurred and retry limit hasn't been exceeded - return false to cancel sending
+     */
+    func shouldRetry(_ messageEnvelope: MessageEnvelope) -> Bool
+}
+
+public extension EasyApnsDelegate {
+    
+    /**
+     by default attempt to send message again
+     */
+    func shouldRetry(_ messageEnvelope: MessageEnvelope) -> Bool {
+        return true
+    }
 }
 
 /**
- * Class responsible for handling connection to the APNS server and handling messages sending
+ Class responsible for handling connection to the APNS server and handling messages sending
  */
 public final class EasyApns: SecureHttp2Con {
     
    
     /**
-     * EasyAPNS possible errors
+     EasyAPNS possible errors
      */
     public enum Error: Swift.Error {
         /**
-         * curl slist for headers setting error
+         * header's curl slist error
          */
         case headerSlist
     }
     
     /**
-     * Choose between APNS environments - development and production
+     Choose between APNS environments - development and production
      */
     public enum Environment {
         case development, production
@@ -60,7 +75,7 @@ public final class EasyApns: SecureHttp2Con {
     private let logger: Logger
 
     /**
-     * provide information to standard output about occuring actions
+     provide information to standard output about occuring actions
      - parameter val: verbose debug
      - parameter verboseCurl:Bool if true, sets curl to work in verbose mode
      */
@@ -70,13 +85,13 @@ public final class EasyApns: SecureHttp2Con {
     }
 
     /**
-     * messages retry limit in case of sending failure
+     messages retry limit in case of sending failure
      */
     public var sendRetryTimes: Int = 5
     
     
     /**
-     * microseconds interval to wait after message sending error
+     microseconds interval to wait after message sending error
      */
     public var retryMicrosecondsInterval:useconds_t = 0
     
@@ -84,7 +99,7 @@ public final class EasyApns: SecureHttp2Con {
     public weak var delegate: EasyApnsDelegate?
 
     /**
-     * queue for messages to be sent
+     queue for messages to be sent
      */
     public private(set) var messagesQueue = Queue<MessageEnvelope>()
 
@@ -155,7 +170,7 @@ public final class EasyApns: SecureHttp2Con {
     }
 
     /**
-     * send currently enqueued messages
+     send currently enqueued messages
      */
     public func sendMessagesInQueue() {
         logger.log("Sending started with \(messagesQueue.count) messages to send\n", type: .info)
@@ -214,12 +229,21 @@ public final class EasyApns: SecureHttp2Con {
                 messageEnvelope.retriesCount += 1
                 if messageEnvelope.retriesCount < sendRetryTimes {
                     messageEnvelope.status = MessageEnvelope.Status.enqueuedForResend(innerState: messageEnvelope.status)
-                    messagesQueue.enqueue(messageEnvelope)
+                    
+                    
                     logger.log("Error sending message with app bundle id: \(messageEnvelope.message.appBundle) to device \(messageEnvelope.deviceToken), retries left: \(sendRetryTimes - messageEnvelope.retriesCount)" , type: .error)
                     if case .enqueuedForResend(let innerState) = messageEnvelope.status, innerState != nil {
                         logger.log("Enqueued for resend with inner status: \(innerState!) \n", type: .error)
                     } else {
                         logger.log("Status: \(messageEnvelope.status)", type: .error)
+                    }
+                    
+                    if let delegate = delegate {
+                        if delegate.shouldRetry(messageEnvelope) {
+                            messagesQueue.enqueue(messageEnvelope)
+                        }
+                    } else {
+                        messagesQueue.enqueue(messageEnvelope)
                     }
                     
 
