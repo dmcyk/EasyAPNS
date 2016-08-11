@@ -11,7 +11,7 @@ import EasyAPNS
 class FeedbackCollector: EasyApnsDelegate {
     
     func sendingFeedback(_ messageEnvelope: MessageEnvelope) {
-        if case MessageEnvelope.Status.successfullySent(let apnsId,let curlResponse) = messageEnvelope.status {
+        if case .successfullySent(let apnsId,let curlResponse) = messageEnvelope.status {
             print(apnsId)
             print(curlResponse?.headers)
         }

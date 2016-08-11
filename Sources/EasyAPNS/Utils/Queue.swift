@@ -25,7 +25,11 @@
 // THE SOFTWARE.
 //
 
-/*
+/**
+ Swift Algorithm Club Queue
+ 
+ Copyright (c) 2016 Matthijs Hollemans and contributors
+ 
  First-in first-out queue (FIFO)
  New elements are added to the end of the queue. Dequeuing pulls elements from
  the front of the queue.

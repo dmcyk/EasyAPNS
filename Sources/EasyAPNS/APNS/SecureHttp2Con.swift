@@ -14,12 +14,12 @@ import cURL
 public class SecureHttp2Con {
     
     /**
-     * connection's curl reference
+     connection's curl reference
      */
     public let curl: Curl
     
     /**
-     * absolute path to certificate which is to be used during connection
+     absolute path to certificate which is to be used during connection
      */
     public var certificatePath: String {
         didSet {
@@ -36,7 +36,7 @@ public class SecureHttp2Con {
     }
     
     /**
-     * custom user-agent
+     custom user-agent
      */
     public var userAgent: String? {
         didSet {
@@ -50,7 +50,7 @@ public class SecureHttp2Con {
     }
     
     /**
-     * optional certificate's passphrase
+     optional certificate's passphrase
      */
     public var certificatePassphrase: String? {
         didSet {
@@ -64,7 +64,7 @@ public class SecureHttp2Con {
     }
     
     /**
-     * set path to certificate authority file
+     path to certificate authority file
      */
     public var caCertificatePath: String? {
         didSet {
@@ -87,7 +87,7 @@ public class SecureHttp2Con {
     }
     
     /**
-     * request url
+     request url
      */
     public var url: String = "" {
         didSet {
@@ -100,7 +100,7 @@ public class SecureHttp2Con {
     }
     
     /**
-     * request port
+     request port
      */
     public var port: Int  = 0 {
         didSet {
@@ -113,7 +113,7 @@ public class SecureHttp2Con {
     }
     
     /**
-     * curl's maximum timeout
+     request's maximum timeout
      */
     public var timeout: Int {
         didSet {

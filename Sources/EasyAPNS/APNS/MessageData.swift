@@ -9,7 +9,7 @@
 public extension Message {
     
     /**
-     * Message's errors
+     Message's errors
      */
     public enum Error: Swift.Error, CustomStringConvertible {
         case incorrectDeviceTokenLength, payloadTooLarge, exceededSendingLimit
@@ -27,7 +27,7 @@ public extension Message {
     }
     
     /**
-     * APNS's message sound representation
+     APNS's message sound representation
      */
     public enum Sound: CustomStringConvertible {
         case `default`, custom(String)
@@ -43,12 +43,12 @@ public extension Message {
     }
     
     /**
-     * Wrapper to handle APNS's alerts
+     Wrapper to handle APNS's alerts
      */
     public enum Alert {
         
         /**
-         * Detailed APNS's alert representation
+         Detailed APNS's alert representation
          */
         public struct Detailed {
             public var title: String?
@@ -94,7 +94,7 @@ public extension Message {
             }
             
             /**
-             * JSON string representation
+             JSON string representation
              */
             public var jsonString: String {
                 return JSONSerializer().serializeToString(json: json)
@@ -116,7 +116,7 @@ public extension Message {
         case message(String), detailed(Detailed)
         
         /**
-         * JSON representation
+         JSON representation
          */
         public var json: JSON {
             switch self {
@@ -128,7 +128,7 @@ public extension Message {
         }
         
         /**
-         * JSON string representation 
+         JSON string representation 
          */
         public var jsonString: String {
             return JSONSerializer().serializeToString(json: json)

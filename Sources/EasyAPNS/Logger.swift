@@ -11,7 +11,7 @@ enum LogType: Int {
 }
 
 /**
- * Logging level - use for message delivery debuging
+ Logging level - use for message delivery debuging
  */
 public struct LoggerLevel: OptionSet {
     public let rawValue: Int
@@ -25,7 +25,7 @@ public struct LoggerLevel: OptionSet {
     }
 }
 
-class Logger {
+final class Logger {
    
     var level: LoggerLevel
     

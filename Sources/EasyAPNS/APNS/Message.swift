@@ -10,47 +10,47 @@ import JSON
 
 
 /**
- * APNS's message representation
+ APNS's message representation
  */
 public struct Message {
     
     /**
-     * maximum message size (increased to 4096 with APNS 2 [HTTP/2])
+     maximum message size (increased to 4096 with APNS 2 [HTTP/2])
      */
     public static let maximumSize: UInt = 4096
     
     /**
-     * device tokens that given message is supposed to be sent to
+     device tokens that given message is supposed to be sent to
      */
     public var deviceTokens: [String]
     
     /**
-     * application's bundle id
+     application's bundle id
      */
     public var appBundle: String
     
     /**
-     * custom message id, if nil APNS generates id on it's own
+     custom message id, if nil APNS generates id on it's own
      */
     public var customId: String? = nil
     
     /**
-     * alert in given message notification
+     alert in given message notification
      */
     public var alert: Alert? = nil
     
     /**
-     * application badge
+     application badge
      */
     public var badge: Int? = nil
     
     /**
-     * sound change
+     sound change
      */
     public var sound: Sound? = nil
     
     /**
-     * additional custom payload
+     additional custom payload
      */
     public var custom: [String: JSON] = [:]
     
@@ -79,7 +79,7 @@ public struct Message {
     }
     
     /**
-     * validate assigned device tokens
+     validate assigned device tokens
      */
     public func validateDeviceTokens() throws {
         for token in deviceTokens {
@@ -88,7 +88,7 @@ public struct Message {
     }
     
     /**
-     * validate given device token
+     validate given device token
      */
     public func validate(_ deviceToken: String) throws {
         if strlen(deviceToken) != 64 {
@@ -97,7 +97,7 @@ public struct Message {
     }
     
     /**
-     * validate message payload length
+     validate message payload length
      */
     public func validatePayload() throws {
         
@@ -127,7 +127,7 @@ public struct Message {
     }
     
     /**
-     * JSON representation
+     JSON representation
      */
     public var json: JSON {
         var json = JSON.infer(custom)
@@ -136,7 +136,7 @@ public struct Message {
     }
     
     /**
-     * JSON string representation
+     JSON string representation
      */
     public var jsonString: String {
         return JSONSerializer().serializeToString(json: json)
