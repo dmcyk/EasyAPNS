@@ -12,7 +12,7 @@ import JSON
 /**
  APNS's message representation
  */
-public struct Message {
+public struct Message: JSONRepresentable {
     
     /**
      maximum message size (increased to 4096 with APNS 2 [HTTP/2])
@@ -101,45 +101,37 @@ public struct Message {
      */
     public func validatePayload() throws {
         
-        if strlen(jsonString) > Message.maximumSize {
-            throw Message.Error.payloadTooLarge
+        if let jsonString = encoded().string {
+            if strlen(jsonString) > Message.maximumSize {
+                throw Message.Error.payloadTooLarge
+            }
+        } else {
+            throw Message.Error.jsonError
         }
     }
     
-    private var flatAps: [String: JSON] {
+    public func encoded() -> JSON {
+ 
         var data = [String: JSON]()
         if let alert = alert {
-            data["alert"] = alert.json
+            data["alert"] = alert.encoded()
         }
         if let badge = badge {
-            data["badge"] = JSON.infer(badge)
+            data["badge"] = JSON.integer(Int64(badge))
         }
         if let sound = sound {
-            data["sound"] = JSON.infer(sound.description)
+            data["sound"] = JSON.string(sound.description)
         }
         if let category = category {
-            data["category"] = JSON.infer(category)
+            data["category"] = JSON.string(category)
         }
         if contentAvailable {
-            data["content-available"] = 1
+            data["content-available"] = JSON.integer(1)
         }
-        return data
-    }
-    
-    /**
-     JSON representation
-     */
-    public var json: JSON {
-        var json = JSON.infer(custom)
-        json["aps"] = JSON.infer(flatAps)
+        
+        var json = JSON.object(custom)
+        json["aps"] = JSON.object(data)
         return json
     }
-    
-    /**
-     JSON string representation
-     */
-    public var jsonString: String {
-        return JSONSerializer().serializeToString(json: json)
-    }
-    
+
 }

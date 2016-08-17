@@ -10,7 +10,7 @@ import cURL
 /**
  Swift curl's slist wrapper
  */
-public final class CurlSlist {
+public class CurlSlist {
     
     /**
      raw curl's slist pointer

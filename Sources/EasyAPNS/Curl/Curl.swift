@@ -10,12 +10,12 @@ import cURL
 /**
  Swift curl wrapper 
  */
-public final class Curl {
+public class Curl {
     
     /**
      raw C's curl pointer
      */
-    public let rawCurl: UnsafeMutablePointer<Void>
+    public let rawCurl: UnsafeMutableRawPointer
     
     /**
      instantiate curl lib with easy interface
@@ -66,7 +66,7 @@ public final class Curl {
      - parameter option:CurlSetOption curl's option to set
      - parameter value:UnsafeMutablePointer<Void> value for option
      */
-    public func set(_ option: CurlSetOption, value: UnsafeMutablePointer<Void>) {
+    public func set(_ option: CurlSetOption, value: UnsafeMutableRawPointer) {
         curl_easy_setopt_void(rawCurl, option.raw, value)
     }
     
@@ -123,50 +123,46 @@ public final class Curl {
      */
     public func execute(_ parseMode: CurlParse = .trimNewLineCharacters) throws -> CurlResponse {
         var response = CurlResponse(parseMode: parseMode)
-        let responsePointer = withUnsafeMutablePointer(&response) { UnsafeMutablePointer<Void>($0) }
+        let responsePointer = withUnsafeMutablePointer(to: &response) { UnsafeMutableRawPointer($0) }
         
         curl_easy_setopt_void(rawCurl, CURLOPT_HEADERDATA, responsePointer)
         curl_easy_setopt_void(rawCurl, CURLOPT_WRITEDATA, responsePointer)
         curl_easy_setopt_func(rawCurl, CURLOPT_WRITEFUNCTION) { (data, size, nmemb, userData) -> Int in
 
-            if nmemb > 0, let userData = userData {
-                let response = UnsafeMutablePointer<CurlResponse>(userData)
-                if let characters:UnsafeMutablePointer<CChar> = UnsafeMutablePointer(data) {
-                    let buffer = UnsafeMutablePointer<CChar>.allocate(capacity: size * nmemb + 1)
-                    strcpy(buffer, characters)
-                    buffer[size * nmemb] = 0
-                    var resultString = String(cString: buffer)
-                    if case .trimNewLineCharacters = response.pointee.parseMode {
-                        resultString.trimHTTPNewline()
-                    }
-                    response.pointee.body.append(resultString)
-                    
-                    buffer.deinitialize()
-                    buffer.deallocate(capacity: size * nmemb + 1)
+            if nmemb > 0, let response = userData?.assumingMemoryBound(to: CurlResponse.self),
+                let characters = data?.assumingMemoryBound(to: CChar.self) {
+                
+                let buffer = UnsafeMutablePointer<CChar>.allocate(capacity: size * nmemb + 1)
+                strcpy(buffer, characters)
+                buffer[size * nmemb] = 0
+                var resultString = String(cString: buffer)
+                if case .trimNewLineCharacters = response.pointee.parseMode {
+                    resultString.trimHTTPNewline()
                 }
-
+                response.pointee.body.append(resultString)
+                
+                buffer.deinitialize()
+                buffer.deallocate(capacity: size * nmemb + 1)
             }
             
             return size * nmemb
         }
         curl_easy_setopt_func(rawCurl, CURLOPT_HEADERFUNCTION) { (data, size, nmemb, userData) -> Int in
-            if nmemb > 0, let userData = userData {
-                let response = UnsafeMutablePointer<CurlResponse>(userData)
+            if nmemb > 0, let response = userData?.assumingMemoryBound(to: CurlResponse.self),
+                let characters = data?.assumingMemoryBound(to: CChar.self) {
 
-                if let characters:UnsafeMutablePointer<CChar> = UnsafeMutablePointer(data) {
-                    let buffer = UnsafeMutablePointer<CChar>.allocate(capacity: size * nmemb + 1)
-                    strcpy(buffer, characters)
-                    buffer[size * nmemb] = 0
-                    var resultString = String(cString: buffer)
-                    if case .trimNewLineCharacters = response.pointee.parseMode {
-                        // HTTP's headers end with CRLF line break
-                        resultString.trimHTTPNewline()
-                    }
-                    response.pointee.headers.append(resultString)
-                    
-                    buffer.deinitialize()
-                    buffer.deallocate(capacity: size * nmemb + 1)
+                let buffer = UnsafeMutablePointer<CChar>.allocate(capacity: size * nmemb + 1)
+                strcpy(buffer, characters)
+                buffer[size * nmemb] = 0
+                var resultString = String(cString: buffer)
+                if case .trimNewLineCharacters = response.pointee.parseMode {
+                    // HTTP's headers end with CRLF line break
+                    resultString.trimHTTPNewline()
                 }
+                response.pointee.headers.append(resultString)
+                
+                buffer.deinitialize()
+                buffer.deallocate(capacity: size * nmemb + 1)
                 
             }
             return size * nmemb

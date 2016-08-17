@@ -2,6 +2,10 @@
 
 Swift APNS client built by wrapping `libcurl`'s _easy_ interface. 
 
+## Dependecies
+* CURL with HTTP/2 support 
+
+On macOS HTTP/2 can be installed with Homebrew using `brew install curl --with-openssl --with-nghttp2`, then you also have to link brew's curl by adding flags `-L/usr/local/opt/curl/lib -I/usr/local/opt/curl/include` (in Xcode - project's build settings -> Linking -> Other Librarian/Linker flags)
 
 ## Example usage
 

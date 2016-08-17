@@ -11,7 +11,7 @@ import cURL
 /**
  * Abstract class for curl HTTP/2 certificate based connection 
  */
-public class SecureHttp2Con {
+open class SecureHttp2Con {
     
     /**
      connection's curl reference

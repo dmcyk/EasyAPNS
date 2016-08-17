@@ -128,7 +128,7 @@ public enum CurlSetOption: Hashable {
  */
 public enum CurlOptionType {
     case int(Int), upInt8(UnsafePointer<Int8>), int64(Int64),
-    umpCurlSlist(UnsafeMutablePointer<curl_slist>), umpVoid(UnsafeMutablePointer<Void>)
+    umpCurlSlist(UnsafeMutablePointer<curl_slist>), umpVoid(UnsafeMutableRawPointer)
 }
 
 

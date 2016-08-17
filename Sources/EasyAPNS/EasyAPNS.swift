@@ -39,7 +39,7 @@ public extension EasyApnsDelegate {
 /**
  Class responsible for handling connection to the APNS server and handling messages sending
  */
-public final class EasyApns: SecureHttp2Con {
+public class EasyApns: SecureHttp2Con {
     
    
     /**
@@ -77,17 +77,22 @@ public final class EasyApns: SecureHttp2Con {
     /**
      provide information to standard output about occuring actions
      - parameter val: verbose debug
+     */
+    public func logMode(loggerLevel: LoggerLevel) {
+        logger.level = loggerLevel
+    }
+    
+    /**
      - parameter verboseCurl:Bool if true, sets curl to work in verbose mode
      */
-    public func logMode(loggerLevel: LoggerLevel, verboseCurl: Bool) {
-        logger.level = loggerLevel
+    public func verboseCurl(_ verboseCurl: Bool) {
         curl.set(.verbose, value: verboseCurl)
     }
 
     /**
      messages retry limit in case of sending failure
      */
-    public var sendRetryTimes: Int = 5
+    public var sendRetryTimes: Int = 3
     
     
     /**
@@ -102,7 +107,7 @@ public final class EasyApns: SecureHttp2Con {
      queue for messages to be sent
      */
     public private(set) var messagesQueue = Queue<MessageEnvelope>()
-
+    
     public init(environment: Environment, certificatePath: String, certificatePassphrase: String?,
                 loggerLevel: LoggerLevel = .none, timeout: Int = 20) {
         logger = Logger(loggerLevel: loggerLevel)
@@ -158,8 +163,11 @@ public final class EasyApns: SecureHttp2Con {
             throw EasyApns.Error.headerSlist
         }
         curl.setSlist(.httpHeader, value: curlSlist.rawSlist)
-
-        curl.set(.postFields, value: message.jsonString)
+        if let jsonString = message.encoded().string {
+            curl.set(.postFields, value: jsonString)
+        } else {
+            throw Message.Error.jsonError
+        }
 
         defer {
             curl.set(.url, value: url)
@@ -207,8 +215,8 @@ public final class EasyApns: SecureHttp2Con {
 
                     case 400:
                         do {
-                            let parsedBody = try JSONParser().parse(data: response.body.data)
-                            if let reason = parsedBody["reason"]?.stringValue {
+                            let parsedBody = try JSON.Parser.parse(response.body)
+                            if let reason = parsedBody["reason"]?.string {
                                 messageEnvelope.status = MessageEnvelope.Status.badRequest(.reason(reason))
                             } else {
                                 messageEnvelope.status = MessageEnvelope.Status.badRequest(.raw(json: parsedBody))

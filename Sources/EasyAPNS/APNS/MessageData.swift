@@ -6,13 +6,15 @@
 //
 //
 
+import JSON
+
 public extension Message {
     
     /**
      Message's errors
      */
     public enum Error: Swift.Error, CustomStringConvertible {
-        case incorrectDeviceTokenLength, payloadTooLarge, exceededSendingLimit
+        case incorrectDeviceTokenLength, payloadTooLarge, exceededSendingLimit, jsonError
         
         public var description: String {
             switch self {
@@ -21,7 +23,9 @@ public extension Message {
             case .payloadTooLarge:
                 return "PayLoad size must be less or equal than \(Message.maximumSize) bytes"
             case .exceededSendingLimit:
-                return "Exceeded limit of sendveing retry"
+                return "Exceeded limit of sending retry"
+            case .jsonError:
+                return "Error parsing JSON string"
             }
         }
     }
@@ -45,12 +49,12 @@ public extension Message {
     /**
      Wrapper to handle APNS's alerts
      */
-    public enum Alert {
+    public enum Alert: JSONRepresentable {
         
         /**
          Detailed APNS's alert representation
          */
-        public struct Detailed {
+        public struct Detailed: JSONConvertible {
             public var title: String?
             public var body: String?
             public var titleLocKey: String?
@@ -60,44 +64,42 @@ public extension Message {
             public var locArgs: [String]
             public var launchImage: String?
             
-            public var flat: [String: JSON] {
+            public func encoded() -> JSON {
                 var data = [String: JSON]()
                 if let title = title {
-                    data["title"] = JSON.infer(title)
+                    data["title"] = JSON.string(title)
                 }
                 if let body = body {
-                    data["body"] = JSON.infer(body)
+                    data["body"] = JSON.string(body)
                 }
                 if let titleLocKey = titleLocKey {
-                    data["title-loc-key"] = JSON.infer(titleLocKey)
+                    data["title-loc-key"] = JSON.string(titleLocKey)
                 }
                 if let actionLocKey = actionLocKey {
-                    data["action-loc-key"] = JSON.infer(actionLocKey)
+                    data["action-loc-key"] = JSON.string(actionLocKey)
                 }
                 if let locKey = locKey {
-                    data["loc-key"] = JSON.infer(locKey)
+                    data["loc-key"] = JSON.string(locKey)
                 }
                 if let launchImage = launchImage {
-                    data["launch-image"] = JSON.infer(launchImage)
+                    data["launch-image"] = JSON.string(launchImage)
                 }
                 if !locArgs.isEmpty {
-                    data["loc-args"] = JSON.infer(locArgs.map {JSON.infer($0)})
+                    data["loc-args"] = JSON.array(locArgs.map {JSON.string($0)})
                 }
-                return data
+                return JSON.object(data)
             }
             
-            /**
-             * JSON representation
-             */
-            public var json: JSON {
-                return JSON.infer(flat)
-            }
-            
-            /**
-             JSON string representation
-             */
-            public var jsonString: String {
-                return JSONSerializer().serializeToString(json: json)
+            public init(json: JSON) throws {
+                self.title = try? json.get("title")
+                self.body = try? json.get("body")
+                self.titleLocKey = try? json.get("titleLocKey")
+                self.titleLocArgs = try? json.get("titleLocArgs")
+                self.actionLocKey = try? json.get("actionLocKey")
+                self.locKey = try? json.get("locKey")
+                self.locArgs = (try? json.get("locArgs")) ?? []
+                self.launchImage = try? json.get("launchImage")
+
             }
             
             public init(title: String? = nil, body: String? = nil, titleLocKey: String? = nil, titleLocArgs: String? = nil,
@@ -114,26 +116,16 @@ public extension Message {
         }
         
         case message(String), detailed(Detailed)
-        
-        /**
-         JSON representation
-         */
-        public var json: JSON {
+    
+        public func encoded() -> JSON {
             switch self {
             case .message(let str):
-                return JSON.infer(str)
+                return JSON.string(str)
             case .detailed(let alert):
-                return alert.json
+                return alert.encoded()
             }
         }
         
-        /**
-         JSON string representation 
-         */
-        public var jsonString: String {
-            return JSONSerializer().serializeToString(json: json)
-            
-        }
     }
 
 }
