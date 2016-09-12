@@ -4,7 +4,13 @@ let package = Package(
     name: "EasyAPNS",
     targets: [
         Target(
-            name: "EasyAPNS"
+            name: "libc"
+        ),
+        Target(
+            name: "EasyAPNS",
+	    dependencies: [
+	    	.Target(name: "libc")
+	    ]
         ),
         Target(
             name: "Example",
