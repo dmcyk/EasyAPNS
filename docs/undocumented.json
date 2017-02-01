@@ -1,1 +1,768 @@
-{"warnings":[{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift","line":59,"symbol":"development","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift","line":59,"symbol":"production","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift","line":99,"symbol":"delegate","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift","line":106,"symbol":"init(environment:certificatePath:certificatePassphrase:loggerLevel:timeout:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Logger.swift","line":19,"symbol":"none","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Logger.swift","line":20,"symbol":"error","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Logger.swift","line":21,"symbol":"info","symbol_kind":"source.lang.swift.decl.var.static","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift","line":57,"symbol":"category","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift","line":58,"symbol":"contentAvailable","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":15,"symbol":"incorrectDeviceTokenLength","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":15,"symbol":"payloadTooLarge","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":15,"symbol":"exceededSendingLimit","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":33,"symbol":"default","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":33,"symbol":"custom","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":54,"symbol":"title","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":55,"symbol":"body","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":56,"symbol":"titleLocKey","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":57,"symbol":"titleLocArgs","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":58,"symbol":"actionLocKey","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":59,"symbol":"locKey","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":60,"symbol":"locArgs","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":61,"symbol":"launchImage","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":63,"symbol":"flat","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":103,"symbol":"init(title:body:titleLocKey:titleLocArgs:actionLocKey:locKey:locArgs:launchImage:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":116,"symbol":"message","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift","line":116,"symbol":"detailed","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":20,"symbol":"notSend","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":21,"symbol":"successfullySent","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":22,"symbol":"enqueuedForResend","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":23,"symbol":"sendingFailed","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":24,"symbol":"responseParsingError","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":25,"symbol":"badRequest","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":26,"symbol":"errorWithCertificate","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":27,"symbol":"incorrectRequestMethod","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":28,"symbol":"deviceTokenNoLongerActive","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":29,"symbol":"payloadTooLarge","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":30,"symbol":"tooManyRequestsForGivenToken","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":31,"symbol":"serverError","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":32,"symbol":"serverShutdown","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":33,"symbol":"unknown","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":35,"symbol":"BadRequestResponse","symbol_kind":"source.lang.swift.decl.enum","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":36,"symbol":"raw","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":36,"symbol":"reason","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift","line":39,"symbol":"rawValue","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Curl/CurlStructure.swift","line":20,"symbol":"rawValue","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Curl/CurlStructure.swift","line":24,"symbol":"raw","symbol_kind":"source.lang.swift.decl.var.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Curl/CurlStructure.swift","line":130,"symbol":"int","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Curl/CurlStructure.swift","line":130,"symbol":"upInt8","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Curl/CurlStructure.swift","line":130,"symbol":"int64","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Curl/CurlStructure.swift","line":131,"symbol":"umpCurlSlist","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Curl/CurlStructure.swift","line":131,"symbol":"umpVoid","symbol_kind":"source.lang.swift.decl.enumelement","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Queue.swift","line":42,"symbol":"init()","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Queue.swift","line":52,"symbol":"enqueue(_:)","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Queue.swift","line":56,"symbol":"dequeue()","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"},{"file":"/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Queue.swift","line":71,"symbol":"peek()","symbol_kind":"source.lang.swift.decl.function.method.instance","warning":"undocumented"}],"source_directory":"/Users/damian/Dev/SwiftServer/EasyAPNS"}
+{
+  "warnings": [
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 17,
+      "symbol": "Message.Priority",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 18,
+      "symbol": "Message.Priority.high",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 19,
+      "symbol": "Message.Priority.low",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 23,
+      "symbol": "Message.Mode",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 24,
+      "symbol": "Message.Mode.regular",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 25,
+      "symbol": "Message.Mode.voip",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 43,
+      "symbol": "Message.Expiration.immediate",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 44,
+      "symbol": "Message.Expiration.at",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 45,
+      "symbol": "Message.Expiration.default",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 48,
+      "symbol": "Message.priority",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 50,
+      "symbol": "Message.mode",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 52,
+      "symbol": "Message.expiration",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 65,
+      "symbol": "Message.alert",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 67,
+      "symbol": "Message.badge",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 69,
+      "symbol": "Message.sound",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 74,
+      "symbol": "Message.category",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 79,
+      "symbol": "Message.mutableContent",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 81,
+      "symbol": "Message.threadId",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 87,
+      "symbol": "Message.custom",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/Message.swift",
+      "line": 119,
+      "symbol": "Message.validate(deviceToken:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 22,
+      "symbol": "Message.ValidationError.incorrectDeviceTokenLength",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 23,
+      "symbol": "Message.ValidationError.payloadTooLarge",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 24,
+      "symbol": "Message.ValidationError.incorrectPriority",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 25,
+      "symbol": "Message.ValidationError.customPayloadIncorrectKey",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 26,
+      "symbol": "Message.ValidationError.collapseIdTooLarge",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 33,
+      "symbol": "Message.Sound.custom",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 33,
+      "symbol": "Message.Sound.default",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 54,
+      "symbol": "Message.Alert.Detailed.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 55,
+      "symbol": "Message.Alert.Detailed.body",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 56,
+      "symbol": "Message.Alert.Detailed.titleLocKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 57,
+      "symbol": "Message.Alert.Detailed.titleLocArgs",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 58,
+      "symbol": "Message.Alert.Detailed.actionLocKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 59,
+      "symbol": "Message.Alert.Detailed.locKey",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 60,
+      "symbol": "Message.Alert.Detailed.locArgs",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 61,
+      "symbol": "Message.Alert.Detailed.launchImage",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 101,
+      "symbol": "Message.Alert.Detailed.init(title:body:titleLocKey:titleLocArgs:actionLocKey:locKey:locArgs:launchImage:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 114,
+      "symbol": "Message.Alert.message",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageData.swift",
+      "line": 115,
+      "symbol": "Message.Alert.detailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 25,
+      "symbol": "MessageEnvelope.Status.notSend",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 26,
+      "symbol": "MessageEnvelope.Status.missingResponse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 27,
+      "symbol": "MessageEnvelope.Status.enqueuedForResend",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 28,
+      "symbol": "MessageEnvelope.Status.sendingFailed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 29,
+      "symbol": "MessageEnvelope.Status.exceededSendingLimit",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 30,
+      "symbol": "MessageEnvelope.Status.resendingCanceled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 32,
+      "symbol": "MessageEnvelope.Status.successfullySent",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 33,
+      "symbol": "MessageEnvelope.Status.incorrectRequest",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 34,
+      "symbol": "MessageEnvelope.Status.incorrectCertificate",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 35,
+      "symbol": "MessageEnvelope.Status.incorrectPath",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 36,
+      "symbol": "MessageEnvelope.Status.incorrectRequestMethod",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 37,
+      "symbol": "MessageEnvelope.Status.deviceTokenNoLongerActive",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 38,
+      "symbol": "MessageEnvelope.Status.payloadTooLarge",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 39,
+      "symbol": "MessageEnvelope.Status.tooManyRequestsForGivenToken",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 40,
+      "symbol": "MessageEnvelope.Status.serverInternalError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 41,
+      "symbol": "MessageEnvelope.Status.serverShutdown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 42,
+      "symbol": "MessageEnvelope.Status.unknown",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 50,
+      "symbol": "MessageEnvelope.Status.BadRequestResponse.json",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 50,
+      "symbol": "MessageEnvelope.Status.BadRequestResponse.raw",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 50,
+      "symbol": "MessageEnvelope.Status.BadRequestResponse.reason",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 53,
+      "symbol": "MessageEnvelope.Status.inner",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 62,
+      "symbol": "MessageEnvelope.Status.rawValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 166,
+      "symbol": "MessageEnvelope.message",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 169,
+      "symbol": "MessageEnvelope.deviceToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 172,
+      "symbol": "MessageEnvelope.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 175,
+      "symbol": "MessageEnvelope.retriesCount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/APNS/MessageEnvelope.swift",
+      "line": 178,
+      "symbol": "MessageEnvelope.init(_:deviceToken:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 44,
+      "symbol": "EasyApns.Error",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 45,
+      "symbol": "EasyApns.Error.internal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 49,
+      "symbol": "EasyApns.AuthenticationMethod",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 50,
+      "symbol": "EasyApns.AuthenticationMethod.certificate",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 51,
+      "symbol": "EasyApns.AuthenticationMethod.jwt",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 54,
+      "symbol": "EasyApns.Environment",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 55,
+      "symbol": "EasyApns.Environment.development",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 55,
+      "symbol": "EasyApns.Environment.production",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 81,
+      "symbol": "EasyApns.JWTData.init(developerTeamId:keyId:keyPath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 141,
+      "symbol": "EasyApns.delegate",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 143,
+      "symbol": "EasyApns.messagesQueue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 145,
+      "symbol": "EasyApns.init(environment:authenticationMethod:loggerLevel:timeout:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 162,
+      "symbol": "EasyApns.init(environment:certificatePath:certificateKeyPath:caAuthorityPath:loggerLevel:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 167,
+      "symbol": "EasyApns.init(environment:certificatePath:rawCertificatePassphrase:caAuthorityPath:loggerLevel:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/EasyAPNS.swift",
+      "line": 172,
+      "symbol": "EasyApns.init(environment:developerTeamId:keyId:keyPath:loggerLevel:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Logger.swift",
+      "line": 19,
+      "symbol": "LoggerLevel.none",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Logger.swift",
+      "line": 20,
+      "symbol": "LoggerLevel.error",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Logger.swift",
+      "line": 21,
+      "symbol": "LoggerLevel.info",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": null,
+      "symbol": "ECDSASigner",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": null,
+      "symbol": "Key",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": null,
+      "symbol": "Signer",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 35,
+      "symbol": "JWTError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 36,
+      "symbol": "JWTError.decoding",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 36,
+      "symbol": "JWTError.encoding",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 37,
+      "symbol": "JWTError.createKey",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 37,
+      "symbol": "JWTError.createPublicKey",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 37,
+      "symbol": "JWTError.signing",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 153,
+      "symbol": "Signer.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 164,
+      "symbol": "Key.init(key:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 209,
+      "symbol": "ECDSASigner.sign(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/ECDSA.swift",
+      "line": 233,
+      "symbol": "ECDSASigner.verifySignature(_:message:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Queue.swift",
+      "line": 42,
+      "symbol": "Queue.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Queue.swift",
+      "line": 52,
+      "symbol": "Queue.enqueue(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Queue.swift",
+      "line": 56,
+      "symbol": "Queue.dequeue()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Queue.swift",
+      "line": 71,
+      "symbol": "Queue.peek()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/String+tokenString.swift",
+      "line": 13,
+      "symbol": "TokenError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/String+tokenString.swift",
+      "line": 14,
+      "symbol": "TokenError.invalidAuthKey",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/String+tokenString.swift",
+      "line": 15,
+      "symbol": "TokenError.invalidTokenString",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/String+tokenString.swift",
+      "line": 16,
+      "symbol": "TokenError.errorCreatingTemporaryKeyFile",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/String+tokenString.swift",
+      "line": 17,
+      "symbol": "TokenError.dataError",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Utils.swift",
+      "line": 11,
+      "symbol": "String.among(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Utils.swift",
+      "line": 19,
+      "symbol": "String.split(withLength:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Utils.swift",
+      "line": 33,
+      "symbol": "String.flop(character:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/damian/Dev/SwiftServer/EasyAPNS/Sources/EasyAPNS/Utils/Utils.swift",
+      "line": 46,
+      "symbol": "Array.split(withLength:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/damian/Dev/SwiftServer/EasyAPNS"
+}

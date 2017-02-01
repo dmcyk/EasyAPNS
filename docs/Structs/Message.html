@@ -14,8 +14,8 @@
     <a title="Message Struct Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">EasyAPNS Docs</a> (68% documented)</p>
-        <p class="header-right"><a href="https://github.com/osjup/EasyAPNS"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p><a href="../index.html">EasyAPNS Docs</a> (31% documented)</p>
+        <p class="header-right"><a href="https://github.com/dmcyk/EasyAPNS"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -32,22 +32,19 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/Curl.html">Curl</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/CurlSlist.html">CurlSlist</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/EasyApns.html">EasyApns</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/EasyApns/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/EasyApns/AuthenticationMethod.html">– AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/EasyApns/Environment.html">– Environment</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SecureHttp2Con.html">SecureHttp2Con</a>
+                <a href="../Classes/EasyApns/JWTData.html">– JWTData</a>
               </li>
             </ul>
           </li>
@@ -55,16 +52,30 @@
             <a href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/CurlGetOption.html">CurlGetOption</a>
+                <a href="../Enums/JWTError.html">JWTError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/CurlOptionType.html">CurlOptionType</a>
+                <a href="../Enums/TokenError.html">TokenError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/CurlParse.html">CurlParse</a>
+                <a href="../Extensions/ECDSASigner.html">ECDSASigner</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/CurlSetOption.html">CurlSetOption</a>
+                <a href="../Extensions/Key.html">Key</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Signer.html">Signer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
               </li>
             </ul>
           </li>
@@ -80,19 +91,22 @@
             <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/CurlErr.html">CurlErr</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/CurlResponse.html">CurlResponse</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/LoggerLevel.html">LoggerLevel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Message.html">Message</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Message/Error.html">– Error</a>
+                <a href="../Structs/Message/Priority.html">– Priority</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/Mode.html">– Mode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/ValidationError.html">– ValidationError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Message/Sound.html">– Sound</a>
@@ -119,11 +133,11 @@
             <h1>Message</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                 </div>
               </div>
-            <p>APNS&rsquo;s message representation</p>
+            <p>APNS&rsquo;s message</p>
 
           </section>
           <section class="section task-group-section">
@@ -132,9 +146,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ZvV8EasyAPNS7Message11maximumSizeSu"></a>
-                    <a name="//apple_ref/swift/Variable/maximumSize" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZvV8EasyAPNS7Message11maximumSizeSu">maximumSize</a>
+                    <a name="/s:OV8EasyAPNS7Message8Priority"></a>
+                    <a name="//apple_ref/swift/Enum/Priority" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OV8EasyAPNS7Message8Priority">Priority</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -142,14 +156,158 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>maximum message size (increased to 4096 with APNS 2 [HTTP/2])</p>
+                        <p>Undocumented</p>
+
+                        <a href="../Structs/Message/Priority.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OV8EasyAPNS7Message4Mode"></a>
+                    <a name="//apple_ref/swift/Enum/Mode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OV8EasyAPNS7Message4Mode">Mode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Structs/Message/Mode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OV8EasyAPNS7Message10Expiration"></a>
+                    <a name="//apple_ref/swift/Enum/Expiration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OV8EasyAPNS7Message10Expiration">Expiration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Notification expiration mode</p>
+
+<ul>
+<li>immediate: APNS will try to deliver the notification only once</li>
+<li>at: from APNS documentation: &lsquo;UNIX epoch date expressed in seconds (UTC)&rsquo;, setting it to 0 equals to immediate expiration</li>
+<li><code>default</code>: unspecified, handled by APNS itself</li>
+</ul>
+
+                        <a href="../Structs/Message/Expiration.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Expiration</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV8EasyAPNS7Message8priorityOS0_8Priority"></a>
+                    <a name="//apple_ref/swift/Property/priority" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message8priorityOS0_8Priority">priority</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">maximumSize</span><span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="mi">4096</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV8EasyAPNS7Message4modeOS0_4Mode"></a>
+                    <a name="//apple_ref/swift/Property/mode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message4modeOS0_4Mode">mode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV8EasyAPNS7Message10expirationOS0_10Expiration"></a>
+                    <a name="//apple_ref/swift/Property/expiration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message10expirationOS0_10Expiration">expiration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                         </div>
                       </div>
@@ -223,7 +381,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>custom message id, if nil APNS generates id on it&rsquo;s own</p>
+                        <p>custom message id, if nil APNS generates id on it&rsquo;s own - given in response</p>
 
                       </div>
                       <div class="declaration">
@@ -250,14 +408,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>alert in given message notification</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">alert</span><span class="p">:</span> <span class="kt"><a href="../Structs/Message/Alert.html">Alert</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                         </div>
                       </div>
@@ -267,9 +425,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV8EasyAPNS7Message5badgeGSqSi_"></a>
+                    <a name="/s:vV8EasyAPNS7Message5badgeGSqVs5Int64_"></a>
                     <a name="//apple_ref/swift/Property/badge" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8EasyAPNS7Message5badgeGSqSi_">badge</a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message5badgeGSqVs5Int64_">badge</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -277,14 +435,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>application badge</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">badge</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                         </div>
                       </div>
@@ -304,14 +462,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>sound change</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sound</span><span class="p">:</span> <span class="kt"><a href="../Structs/Message/Sound.html">Sound</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                         </div>
                       </div>
@@ -321,9 +479,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vV8EasyAPNS7Message6customGVs10DictionarySSO2C74JSON_"></a>
-                    <a name="//apple_ref/swift/Property/custom" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8EasyAPNS7Message6customGVs10DictionarySSO2C74JSON_">custom</a>
+                    <a name="/s:vV8EasyAPNS7Message13customPayloadGVs10DictionarySSO4JSON4JSON_"></a>
+                    <a name="//apple_ref/swift/Property/customPayload" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message13customPayloadGVs10DictionarySSO4JSON4JSON_">customPayload</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -331,14 +489,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>additional custom payload</p>
+                        <p>JSON keys must start with <q>acme</q></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">custom</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">JSON</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">customPayload</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">JSON</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span></code></pre>
 
                         </div>
                       </div>
@@ -365,7 +523,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                         </div>
                       </div>
@@ -385,6 +543,33 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
+                        <p>If only this is present in the notification the priority must not be set to high</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">contentAvailable</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV8EasyAPNS7Message14mutableContentSb"></a>
+                    <a name="//apple_ref/swift/Property/mutableContent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message14mutableContentSb">mutableContent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
                         <p>Undocumented</p>
 
                       </div>
@@ -392,7 +577,88 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV8EasyAPNS7Message8threadIdGSqSS_"></a>
+                    <a name="//apple_ref/swift/Property/threadId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message8threadIdGSqSS_">threadId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV8EasyAPNS7Message10collapseIdGSqSS_"></a>
+                    <a name="//apple_ref/swift/Property/collapseId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message10collapseIdGSqSS_">collapseId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>From APNS documentation: Multiple notifications with the same collapse identifier are displayed to the user as a single notification. The value of this key must not exceed 64 bytes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">collapseId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV8EasyAPNS7Message6customGVs10DictionarySSO4JSON4JSON_"></a>
+                    <a name="//apple_ref/swift/Property/custom" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV8EasyAPNS7Message6customGVs10DictionarySSO4JSON4JSON_">custom</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                         </div>
                       </div>
@@ -520,9 +786,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV8EasyAPNS7Message20validateDeviceTokensFzT_T_"></a>
-                    <a name="//apple_ref/swift/Method/validateDeviceTokens()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV8EasyAPNS7Message20validateDeviceTokensFzT_T_">validateDeviceTokens()</a>
+                    <a name="/s:FV8EasyAPNS7Message8validateFzT11deviceTokenSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/validate(deviceToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV8EasyAPNS7Message8validateFzT11deviceTokenSS_T_">validate(deviceToken:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -530,14 +796,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>validate assigned device tokens</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">validateDeviceTokens</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Message</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                         </div>
                       </div>
@@ -547,9 +813,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV8EasyAPNS7Message8validateFzSST_"></a>
-                    <a name="//apple_ref/swift/Method/validate(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV8EasyAPNS7Message8validateFzSST_">validate(_:)</a>
+                    <a name="/s:FV8EasyAPNS7Message8validateFzT_T_"></a>
+                    <a name="//apple_ref/swift/Method/validate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV8EasyAPNS7Message8validateFzT_T_">validate()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -557,14 +823,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>validate given device token</p>
+                        <p>validate message payload</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">validate</span><span class="p">(</span><span class="n">_</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">validate</span><span class="p">()</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -574,9 +840,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV8EasyAPNS7Message15validatePayloadFzT_T_"></a>
-                    <a name="//apple_ref/swift/Method/validatePayload()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV8EasyAPNS7Message15validatePayloadFzT_T_">validatePayload()</a>
+                    <a name="/s:FP4JSON17JSONRepresentable7encodedFT_OS_4JSON"></a>
+                    <a name="//apple_ref/swift/Method/encoded()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP4JSON17JSONRepresentable7encodedFT_OS_4JSON">encoded()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -584,68 +850,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>validate message payload length</p>
+                        <p>validate message payload</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">validatePayload</span><span class="p">()</span> <span class="k">throws</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV8EasyAPNS7Message4jsonO2C74JSON"></a>
-                    <a name="//apple_ref/swift/Property/json" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8EasyAPNS7Message4jsonO2C74JSON">json</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>JSON representation</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">json</span><span class="p">:</span> <span class="kt">JSON</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vV8EasyAPNS7Message10jsonStringSS"></a>
-                    <a name="//apple_ref/swift/Property/jsonString" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vV8EasyAPNS7Message10jsonStringSS">jsonString</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>JSON string representation</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">jsonString</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encoded</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">JSON</span></code></pre>
 
                         </div>
                       </div>
@@ -659,9 +871,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:OV8EasyAPNS7Message5Error"></a>
-                    <a name="//apple_ref/swift/Enum/Error" class="dashAnchor"></a>
-                    <a class="token" href="#/s:OV8EasyAPNS7Message5Error">Error</a>
+                    <a name="/s:OV8EasyAPNS7Message15ValidationError"></a>
+                    <a name="//apple_ref/swift/Enum/ValidationError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OV8EasyAPNS7Message15ValidationError">ValidationError</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -669,15 +881,23 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Message&rsquo;s errors</p>
+                        <p>Message validation errors</p>
 
-                        <a href="../Structs/Message/Error.html" class="slightly-smaller">See more</a>
+<ul>
+<li>incorrectDeviceTokenLength: DeviceToken length must be equal to 64</li>
+<li>payloadTooLarge: PayLoad size must be less or equal than 4096 bytes in case of regular notifications and 5120 bytes for VOIP</li>
+<li>incorrectPriority: If the notification contains only content-available key and no other, only low priority is allowed</li>
+<li>customPayloadIncorrectKey: Custom payload has an incorrect key. The key must start with &lsquo;acme&rsquo; phrase</li>
+<li>collapseIdTooLarge: Maximum size of collapse id is 64 bytes</li>
+</ul>
+
+                        <a href="../Structs/Message/ValidationError.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Error</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ValidationError</span><span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span></code></pre>
 
                         </div>
                       </div>
@@ -733,7 +953,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Alert</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Alert</span><span class="p">:</span> <span class="kt">JSONRepresentable</span></code></pre>
 
                         </div>
                       </div>
@@ -745,8 +965,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external">Damian Malarczyk</a>. All rights reserved. (Last updated: 2016-08-11)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Damian_Malarczyk</a>. All rights reserved. (Last updated: 2017-02-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

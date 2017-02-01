@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CurlSlist Class Reference</title>
+    <title>String Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,19 +10,19 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/CurlSlist" class="dashAnchor"></a>
-    <a title="CurlSlist Class Reference"></a>
+    <a name="//apple_ref/swift/Extension/String" class="dashAnchor"></a>
+    <a title="String Extension Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">EasyAPNS Docs</a> (68% documented)</p>
-        <p class="header-right"><a href="https://github.com/osjup/EasyAPNS"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p><a href="../index.html">EasyAPNS Docs</a> (31% documented)</p>
+        <p class="header-right"><a href="https://github.com/dmcyk/EasyAPNS"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="../index.html">EasyAPNS Reference</a>
         <img id="carat" src="../img/carat.png" />
-        CurlSlist Class Reference
+        String Extension Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -32,22 +32,19 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes/Curl.html">Curl</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/CurlSlist.html">CurlSlist</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/EasyApns.html">EasyApns</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/EasyApns/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/EasyApns/AuthenticationMethod.html">– AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/EasyApns/Environment.html">– Environment</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SecureHttp2Con.html">SecureHttp2Con</a>
+                <a href="../Classes/EasyApns/JWTData.html">– JWTData</a>
               </li>
             </ul>
           </li>
@@ -55,16 +52,30 @@
             <a href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/CurlGetOption.html">CurlGetOption</a>
+                <a href="../Enums/JWTError.html">JWTError</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/CurlOptionType.html">CurlOptionType</a>
+                <a href="../Enums/TokenError.html">TokenError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/CurlParse.html">CurlParse</a>
+                <a href="../Extensions/ECDSASigner.html">ECDSASigner</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/CurlSetOption.html">CurlSetOption</a>
+                <a href="../Extensions/Key.html">Key</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Signer.html">Signer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
               </li>
             </ul>
           </li>
@@ -80,19 +91,22 @@
             <a href="../Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/CurlErr.html">CurlErr</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/CurlResponse.html">CurlResponse</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/LoggerLevel.html">LoggerLevel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Message.html">Message</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Message/Error.html">– Error</a>
+                <a href="../Structs/Message/Priority.html">– Priority</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/Mode.html">– Mode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/ValidationError.html">– ValidationError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Message/Sound.html">– Sound</a>
@@ -116,15 +130,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>CurlSlist</h1>
+            <h1>String</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CurlSlist</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">String</span></code></pre>
 
                 </div>
               </div>
-            <p>Swift curl&rsquo;s slist wrapper</p>
-
+            
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -132,9 +145,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:vC8EasyAPNS9CurlSlist8rawSlistGSQGSpVSC10curl_slist__"></a>
-                    <a name="//apple_ref/swift/Property/rawSlist" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC8EasyAPNS9CurlSlist8rawSlistGSQGSpVSC10curl_slist__">rawSlist</a>
+                    <a name="/s:FE8EasyAPNSSS5amongFTSSSS_GSqSS_"></a>
+                    <a name="//apple_ref/swift/Method/among(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE8EasyAPNSSS5amongFTSSSS_GSqSS_">among(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -142,14 +155,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>raw curl&rsquo;s slist pointer</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">rawSlist</span><span class="p">:</span> <span class="kt">UnsafeMutablePointer</span><span class="o">&lt;</span><span class="n">curl_slist</span><span class="o">&gt;!</span> <span class="o">=</span> <span class="kc">nil</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -159,9 +172,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC8EasyAPNS9CurlSlistcFT9fromArrayGSaSS__GSqS0__"></a>
-                    <a name="//apple_ref/swift/Method/init(fromArray:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC8EasyAPNS9CurlSlistcFT9fromArrayGSaSS__GSqS0__">init(fromArray:)</a>
+                    <a name="/s:FE8EasyAPNSSS5splitFT10withLengthSi_GSaSS_"></a>
+                    <a name="//apple_ref/swift/Method/split(withLength:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE8EasyAPNSSS5splitFT10withLengthSi_GSaSS_">split(withLength:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -169,14 +182,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>initialize from Swift&rsquo;s string array</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="nv">fromArray</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -186,9 +199,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC8EasyAPNS9CurlSlist6appendFSST_"></a>
-                    <a name="//apple_ref/swift/Method/append(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC8EasyAPNS9CurlSlist6appendFSST_">append(_:)</a>
+                    <a name="/s:FE8EasyAPNSSS4flopFT9characterSS_SS"></a>
+                    <a name="//apple_ref/swift/Method/flop(character:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE8EasyAPNSSS4flopFT9characterSS_SS">flop(character:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -196,14 +209,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>append element</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">append</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -215,8 +228,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external">Damian Malarczyk</a>. All rights reserved. (Last updated: 2016-08-11)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Damian_Malarczyk</a>. All rights reserved. (Last updated: 2017-02-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

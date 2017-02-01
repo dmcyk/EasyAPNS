@@ -13,8 +13,8 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">EasyAPNS Docs</a> (68% documented)</p>
-        <p class="header-right"><a href="https://github.com/osjup/EasyAPNS"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p><a href="index.html">EasyAPNS Docs</a> (31% documented)</p>
+        <p class="header-right"><a href="https://github.com/dmcyk/EasyAPNS"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,22 +31,19 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes/Curl.html">Curl</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/CurlSlist.html">CurlSlist</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Classes/EasyApns.html">EasyApns</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/EasyApns/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/EasyApns/AuthenticationMethod.html">– AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/EasyApns/Environment.html">– Environment</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/SecureHttp2Con.html">SecureHttp2Con</a>
+                <a href="Classes/EasyApns/JWTData.html">– JWTData</a>
               </li>
             </ul>
           </li>
@@ -54,16 +51,30 @@
             <a href="Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Enums/CurlGetOption.html">CurlGetOption</a>
+                <a href="Enums/JWTError.html">JWTError</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/CurlOptionType.html">CurlOptionType</a>
+                <a href="Enums/TokenError.html">TokenError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/CurlParse.html">CurlParse</a>
+                <a href="Extensions/ECDSASigner.html">ECDSASigner</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/CurlSetOption.html">CurlSetOption</a>
+                <a href="Extensions/Key.html">Key</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Signer.html">Signer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
               </li>
             </ul>
           </li>
@@ -79,19 +90,22 @@
             <a href="Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Structs/CurlErr.html">CurlErr</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/CurlResponse.html">CurlResponse</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Structs/LoggerLevel.html">LoggerLevel</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Message.html">Message</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Message/Error.html">– Error</a>
+                <a href="Structs/Message/Priority.html">– Priority</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Message/Mode.html">– Mode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Message/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Message/ValidationError.html">– ValidationError</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Message/Sound.html">– Sound</a>
@@ -135,7 +149,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Class responsible for handling connection to the APNS server and handling messages sending</p>
+                        <p>Handling connection with APNS server and messages sending</p>
 
                         <a href="Classes/EasyApns.html" class="slightly-smaller">See more</a>
                       </div>
@@ -143,103 +157,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">EasyApns</span><span class="p">:</span> <span class="kt"><a href="Classes/SecureHttp2Con.html">SecureHttp2Con</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:C8EasyAPNS14SecureHttp2Con"></a>
-                    <a name="//apple_ref/swift/Class/SecureHttp2Con" class="dashAnchor"></a>
-                    <a class="token" href="#/s:C8EasyAPNS14SecureHttp2Con">SecureHttp2Con</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Abstract class for curl HTTP/2 certificate based connection</p>
-
-                        <a href="Classes/SecureHttp2Con.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">SecureHttp2Con</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:C8EasyAPNS4Curl"></a>
-                    <a name="//apple_ref/swift/Class/Curl" class="dashAnchor"></a>
-                    <a class="token" href="#/s:C8EasyAPNS4Curl">Curl</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Swift curl wrapper</p>
-
-                        <a href="Classes/Curl.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Curl</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:C8EasyAPNS9CurlSlist"></a>
-                    <a name="//apple_ref/swift/Class/CurlSlist" class="dashAnchor"></a>
-                    <a class="token" href="#/s:C8EasyAPNS9CurlSlist">CurlSlist</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Swift curl&rsquo;s slist wrapper</p>
-
-                        <a href="Classes/CurlSlist.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CurlSlist</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">EasyApns</span><span class="p">:</span> <span class="n">cURLConnection</span></code></pre>
 
                         </div>
                       </div>
@@ -251,8 +169,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external">Damian Malarczyk</a>. All rights reserved. (Last updated: 2016-08-11)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Damian_Malarczyk</a>. All rights reserved. (Last updated: 2017-02-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

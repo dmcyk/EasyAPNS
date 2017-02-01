@@ -13,8 +13,8 @@
     <a title="EasyAPNS  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">EasyAPNS Docs</a> (68% documented)</p>
-        <p class="header-right"><a href="https://github.com/osjup/EasyAPNS"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p><a href="index.html">EasyAPNS Docs</a> (31% documented)</p>
+        <p class="header-right"><a href="https://github.com/dmcyk/EasyAPNS"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,22 +31,19 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes/Curl.html">Curl</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/CurlSlist.html">CurlSlist</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Classes/EasyApns.html">EasyApns</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/EasyApns/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/EasyApns/AuthenticationMethod.html">– AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/EasyApns/Environment.html">– Environment</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/SecureHttp2Con.html">SecureHttp2Con</a>
+                <a href="Classes/EasyApns/JWTData.html">– JWTData</a>
               </li>
             </ul>
           </li>
@@ -54,16 +51,30 @@
             <a href="Enums.html">Enums</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Enums/CurlGetOption.html">CurlGetOption</a>
+                <a href="Enums/JWTError.html">JWTError</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/CurlOptionType.html">CurlOptionType</a>
+                <a href="Enums/TokenError.html">TokenError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/CurlParse.html">CurlParse</a>
+                <a href="Extensions/ECDSASigner.html">ECDSASigner</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/CurlSetOption.html">CurlSetOption</a>
+                <a href="Extensions/Key.html">Key</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Signer.html">Signer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
               </li>
             </ul>
           </li>
@@ -79,19 +90,22 @@
             <a href="Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Structs/CurlErr.html">CurlErr</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/CurlResponse.html">CurlResponse</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Structs/LoggerLevel.html">LoggerLevel</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Message.html">Message</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Message/Error.html">– Error</a>
+                <a href="Structs/Message/Priority.html">– Priority</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Message/Mode.html">– Mode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Message/Expiration.html">– Expiration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Message/ValidationError.html">– ValidationError</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Message/Sound.html">– Sound</a>
@@ -118,48 +132,71 @@
             
             <a href='#easyapns' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='easyapns'>EasyAPNS</h1>
 
-<p>Swift APNS client built by wrapping <code>libcurl</code>&rsquo;s <em>easy</em> interface. </p>
+<p>Swift APNS client built by wrapping <code>libcurl</code>&lsquo;s <em>easy</em> interface. </p>
+<a href='#todo' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='todo'>TODO</h2>
+
+<ul>
+<li>[x] JWT Support</li>
+<li>[x] Swift&rsquo;s libcurl wrapper isolation and improvements - preview available at <a href="https://github.com/dmcyk/SwiftyCurl">SwiftyCurl</a></li>
+</ul>
+<a href='#dependecies' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='dependecies'>Dependecies</h2>
+
+<ul>
+<li>CURL with HTTP/2 support</li>
+</ul>
+
+<p>On macOS HTTP/2 can be installed with Homebrew using <code>brew install curl --with-openssl --with-nghttp2</code>, then you also have to link brew&rsquo;s curl by adding flags <code>-L/usr/local/opt/curl/lib -I/usr/local/opt/curl/include</code> (in Xcode - project&rsquo;s build settings -&gt; Linking -&gt; Other Librarian/Linker flags)</p>
 <a href='#example-usage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='example-usage'>Example usage</h2>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">EasyAPNS</span>
+<span class="kd">import</span> <span class="n">libc</span>
+<span class="kd">import</span> <span class="kt">Foundation</span>
 
 <span class="kd">class</span> <span class="kt">FeedbackCollector</span><span class="p">:</span> <span class="kt">EasyApnsDelegate</span> <span class="p">{</span>
 
     <span class="kd">func</span> <span class="nf">sendingFeedback</span><span class="p">(</span><span class="n">_</span> <span class="nv">messageEnvelope</span><span class="p">:</span> <span class="kt">MessageEnvelope</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">successfullySent</span><span class="p">(</span><span class="k">let</span> <span class="nv">apnsId</span><span class="p">,</span><span class="k">let</span> <span class="nv">curlResponse</span><span class="p">)</span> <span class="o">=</span> <span class="n">messageEnvelope</span><span class="o">.</span><span class="n">status</span> <span class="p">{</span>
-            <span class="nf">print</span><span class="p">(</span><span class="n">apnsId</span><span class="p">)</span>
-            <span class="nf">print</span><span class="p">(</span><span class="n">curlResponse</span><span class="p">?</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+        <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">successfullySent</span><span class="p">(</span><span class="k">let</span> <span class="nv">apnsId</span><span class="p">)</span> <span class="o">=</span> <span class="n">messageEnvelope</span><span class="o">.</span><span class="n">status</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">apnsId</span> <span class="p">??</span> <span class="s">"no apns id"</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">messageEnvelope</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">let</span> <span class="nv">caCertPath</span> <span class="o">=</span> <span class="s">"/ca/cert/path.pem"</span>
 
-<span class="k">let</span> <span class="nv">easyApns</span> <span class="o">=</span> <span class="kt">EasyApns</span><span class="p">(</span><span class="nv">environment</span><span class="p">:</span> <span class="o">.</span><span class="n">development</span><span class="p">,</span> <span class="nv">certificatePath</span><span class="p">:</span> <span class="s">"/my/cert/path.pem"</span><span class="p">,</span>
-                        <span class="nv">certificatePassphrase</span><span class="p">:</span> <span class="s">"myPassphrase"</span><span class="p">,</span> <span class="nv">loggerLevel</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="o">.</span><span class="n">error</span><span class="p">])</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">devToken</span> <span class="o">=</span> <span class="s">"..."</span><span class="p">;</span>
+    <span class="k">let</span> <span class="nv">appBundle</span> <span class="o">=</span> <span class="s">"..."</span><span class="p">;</span>
 
-<span class="n">easyApns</span><span class="o">.</span><span class="n">caCertificatePath</span> <span class="o">=</span> <span class="n">caCertPath</span>
-
-<span class="k">let</span> <span class="nv">devToken</span> <span class="o">=</span> <span class="s">"dev_token"</span>
-<span class="k">let</span> <span class="nv">appBundle</span> <span class="o">=</span> <span class="s">"my_app_bundle"</span>
-
-
-
-<span class="k">if</span> <span class="k">var</span> <span class="nv">message</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">Message</span><span class="p">(</span><span class="nv">deviceToken</span><span class="p">:</span> <span class="n">devToken</span><span class="p">,</span> <span class="nv">appBundle</span><span class="p">:</span> <span class="n">appBundle</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">message</span><span class="o">.</span><span class="n">alert</span> <span class="o">=</span> <span class="o">.</span><span class="nf">message</span><span class="p">(</span><span class="s">"Greetings from Swifty EasyAPNS notification :)"</span><span class="p">)</span>
+    <span class="k">var</span> <span class="nv">message</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Message</span><span class="p">(</span><span class="nv">deviceToken</span><span class="p">:</span> <span class="n">devToken</span><span class="p">,</span> <span class="nv">appBundle</span><span class="p">:</span> <span class="n">appBundle</span><span class="p">)</span>
+    <span class="n">message</span><span class="o">.</span><span class="n">alert</span> <span class="o">=</span> <span class="o">.</span><span class="nf">message</span><span class="p">(</span><span class="s">"Greetings from EasyAPNS notification :)"</span><span class="p">)</span>
     <span class="n">message</span><span class="o">.</span><span class="n">badge</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="c1">// JWT </span>
+    <span class="k">let</span> <span class="nv">easyApns</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">EasyApns</span><span class="p">(</span><span class="nv">environment</span><span class="p">:</span> <span class="o">.</span><span class="n">development</span><span class="p">,</span> <span class="nv">developerTeamId</span><span class="p">:</span> <span class="s">"..."</span><span class="p">,</span> <span class="nv">keyId</span><span class="p">:</span> <span class="s">"..."</span><span class="p">,</span> <span class="nv">keyPath</span><span class="p">:</span> <span class="s">"..."</span><span class="p">)</span>
+
+    <span class="c1">//    let easyApns = EasyApns(environment: .development, certificatePath: "...", rawCertificatePassphrase: "...", caAuthorityPath: "...")</span>
+
     <span class="k">let</span> <span class="nv">collector</span> <span class="o">=</span> <span class="kt">FeedbackCollector</span><span class="p">()</span>
     <span class="n">easyApns</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">collector</span>
 
     <span class="k">try</span> <span class="n">easyApns</span><span class="o">.</span><span class="nf">enqueue</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-    <span class="n">easyApns</span><span class="o">.</span><span class="nf">sendMessagesInQueue</span><span class="p">()</span>
+    <span class="k">try</span> <span class="n">easyApns</span><span class="o">.</span><span class="nf">enqueue</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">unsuccessful</span> <span class="o">=</span> <span class="n">easyApns</span><span class="o">.</span><span class="nf">sendEnqueuedMessages</span><span class="p">()</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Unsuccessful"</span><span class="p">)</span>
+    <span class="nf">dump</span><span class="p">(</span><span class="n">unsuccessful</span><span class="p">)</span>
+
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="" target="_blank" rel="external">Damian Malarczyk</a>. All rights reserved. (Last updated: 2016-08-11)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Damian_Malarczyk</a>. All rights reserved. (Last updated: 2017-02-01)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
