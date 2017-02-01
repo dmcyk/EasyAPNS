@@ -71,3 +71,4 @@ fastlane/test_output
 .build/
 *.xcodeproj
 Packages/*
+Package.pins
