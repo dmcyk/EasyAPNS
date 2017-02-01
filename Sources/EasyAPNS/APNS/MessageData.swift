@@ -10,24 +10,20 @@ import JSON
 
 public extension Message {
     
-    /**
-     Message's errors
-     */
-    public enum Error: Swift.Error, CustomStringConvertible {
-        case incorrectDeviceTokenLength, payloadTooLarge, exceededSendingLimit, jsonError
-        
-        public var description: String {
-            switch self {
-            case .incorrectDeviceTokenLength:
-                return "DeviceToken length must be equal to 64"
-            case .payloadTooLarge:
-                return "PayLoad size must be less or equal than \(Message.maximumSize) bytes"
-            case .exceededSendingLimit:
-                return "Exceeded limit of sending retry"
-            case .jsonError:
-                return "Error parsing JSON string"
-            }
-        }
+    
+    /// Message validation errors
+    ///
+    /// - incorrectDeviceTokenLength: DeviceToken length must be equal to 64
+    /// - payloadTooLarge: PayLoad size must be less or equal than 4096 bytes in case of regular notifications and 5120 bytes for VOIP
+    /// - incorrectPriority: If the notification contains only content-available key and no other, only low priority is allowed
+    /// - customPayloadIncorrectKey: Custom payload has an incorrect key. The key must start with 'acme' phrase
+    /// - collapseIdTooLarge: Maximum size of collapse id is 64 bytes
+    public enum ValidationError: Swift.Error {
+        case incorrectDeviceTokenLength
+        case payloadTooLarge(maxSize: Int)
+        case incorrectPriority
+        case customPayloadIncorrectKey
+        case collapseIdTooLarge
     }
     
     /**
@@ -115,7 +111,8 @@ public extension Message {
             }
         }
         
-        case message(String), detailed(Detailed)
+        case message(String)
+        case detailed(Detailed)
     
         public func encoded() -> JSON {
             switch self {

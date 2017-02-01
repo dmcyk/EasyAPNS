@@ -1,0 +1,42 @@
+{
+  "autoPin": true,
+  "pins": [
+    {
+      "package": "CCurl",
+      "reason": null,
+      "repositoryURL": "https://github.com/dmcyk/CCurl.git",
+      "version": "0.1.0"
+    },
+    {
+      "package": "CLibreSSL",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/clibressl.git",
+      "version": "1.0.0"
+    },
+    {
+      "package": "Core",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/core.git",
+      "version": "1.0.0"
+    },
+    {
+      "package": "Crypto",
+      "reason": null,
+      "repositoryURL": "https://github.com/vapor/crypto.git",
+      "version": "1.0.1"
+    },
+    {
+      "package": "JSON",
+      "reason": null,
+      "repositoryURL": "https://github.com/vdka/JSON.git",
+      "version": "0.16.3"
+    },
+    {
+      "package": "SwiftyCurl",
+      "reason": null,
+      "repositoryURL": "https://github.com/dmcyk/SwiftyCurl.git",
+      "version": "0.6.1"
+    }
+  ],
+  "version": 1
+}
