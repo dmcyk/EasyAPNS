@@ -4,9 +4,8 @@ Swift APNS client built by wrapping `libcurl`'s _easy_ interface.
 
 ## TODO 
 
-- [ ] JWT Support 
-- [ ] Swift's libcurl wrapper isolation and improvements - preview available at [SwiftyCurl](https://github.com/dmcyk/SwiftyCurl)
-- [ ] API improvements
+- [x] JWT Support 
+- [x] Swift's libcurl wrapper isolation and improvements - preview available at [SwiftyCurl](https://github.com/dmcyk/SwiftyCurl)
 
 ## Dependecies
 * CURL with HTTP/2 support 
