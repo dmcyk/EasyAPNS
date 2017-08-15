@@ -20,11 +20,11 @@ public extension String {
         var res: [String] = []
         while distance(from: start, to: self.endIndex) > length {
             let next = self.index(start, offsetBy: length)
-            res.append(self[start ..< next])
+            res.append(String(self[start ..< next]))
             start = next
         }
         if distance(from: start, to: self.endIndex) > 0 {
-            res.append(self[start ..< self.endIndex])
+            res.append(String(self[start ..< self.endIndex]))
         }
         return res 
     }
