@@ -9,8 +9,9 @@
 import EasyAPNS
 import libc
 import Foundation
+
 class FeedbackCollector: EasyApnsDelegate {
-    
+
     func sendingFeedback(_ messageEnvelope: MessageEnvelope) {
         if case .successfullySent(let apnsId) = messageEnvelope.status {
             print(apnsId ?? "no apns id")
@@ -19,7 +20,6 @@ class FeedbackCollector: EasyApnsDelegate {
         }
     }
 }
-
 
 do {
     let devToken = "...";
@@ -43,9 +43,6 @@ do {
     
     print("\nUnsuccessful")
     dump(unsuccessful)
-    
-    
 } catch {
     print(error)
 }
-
