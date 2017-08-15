@@ -1,27 +1,31 @@
+// swift-tools-version:4.0
 import PackageDescription
 
 let package = Package(
     name: "EasyAPNS",
-    targets: [
-        Target(
-            name: "EasyAPNS"
-        ),
-        Target(
-            name: "Example",
-            dependencies: [
-                .Target(name: "EasyAPNS")
-            ]
-        )
+    products: [
+        .library(name: "EasyAPNS", type: .dynamic, targets: ["EasyAPNS"]),
+        .executable(name: "EasyAPNSExample", targets: ["EasyAPNSExample"]),
     ],
     dependencies: [
-        .Package(url: "https://github.com/vdka/JSON.git", majorVersion: 0, minor: 16),
-        .Package(url: "https://github.com/vapor/clibressl.git", majorVersion: 1, minor: 0),
-        .Package(url: "https://github.com/vapor/crypto.git", majorVersion: 1, minor: 0),
-        .Package(url: "https://github.com/dmcyk/SwiftyCurl.git", majorVersion: 0, minor: 6)
-
-
+        .package(url: "https://github.com/vdka/JSON.git", .upToNextMajor(from: "0.16.3")),
+        .package(url: "https://github.com/vapor/crypto.git", .upToNextMajor(from: "2.1.0")),
+        .package(url: "https://github.com/dmcyk/SwiftyCurl.git", .upToNextMajor(from: "0.7.0")),
     ],
-    exclude: [
-        "Example"
+    targets: [
+        .target(
+            name: "EasyAPNS",
+            dependencies: [
+                "JSON", 
+                "Crypto", 
+                "SwiftyCurl"
+            ]
+        ),
+        .target(
+            name: "EasyAPNSExample",
+            dependencies: [
+                "EasyAPNS"
+            ]
+        ),
     ]
 )

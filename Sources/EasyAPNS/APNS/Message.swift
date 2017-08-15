@@ -16,8 +16,7 @@ public struct Message: JSONRepresentable {
     
     public enum Priority: Int {
         case high = 10
-        case low = 5 
-        
+        case low = 5
     }
     
     public enum Mode {
@@ -50,11 +49,9 @@ public struct Message: JSONRepresentable {
     public var mode: Mode = .regular
     
     public var expiration: Expiration = .default
-    
-    
+
     /// device tokens that given message is supposed to be sent to
     public var deviceTokens: [String]
-    
 
     /// application's bundle id
     public var appBundle: String
@@ -85,8 +82,7 @@ public struct Message: JSONRepresentable {
     
     // 'acme' custom data payload
     public var custom: [String: JSON] = [:]
-    
-    
+
     /**
      - parameter deviceToken:String single device token to receive message
      - parameter appBundle:String app's bundle id that is to receive message
@@ -105,16 +101,13 @@ public struct Message: JSONRepresentable {
         self.appBundle = appBundle
         self.deviceTokens = deviceTokens
         try validateDeviceTokens()
-        
     }
-    
     
     private func validateDeviceTokens() throws {
         for token in deviceTokens {
             try validate(deviceToken: token)
         }
     }
-    
     
     public func validate(deviceToken: String) throws {
         if strlen(deviceToken) != 64 {
@@ -156,7 +149,6 @@ public struct Message: JSONRepresentable {
     }
     
     public func encoded() -> JSON {
- 
         var data = [String: JSON]()
         if let alert = alert {
             data["alert"] = alert.encoded()
@@ -188,8 +180,7 @@ public struct Message: JSONRepresentable {
         for (k, v) in custom {
             json[k] = v
         }
-        
+
         return json
     }
-
 }

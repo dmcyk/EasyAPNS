@@ -9,21 +9,22 @@
 import EasyAPNS
 import libc
 import Foundation
+
 class FeedbackCollector: EasyApnsDelegate {
-    
+
     func sendingFeedback(_ messageEnvelope: MessageEnvelope) {
+        print("FeedbackCollector: ", terminator: "")
         if case .successfullySent(let apnsId) = messageEnvelope.status {
-            print(apnsId ?? "no apns id")
+            print("Sent: \(apnsId ?? "no apns id")")
         } else {
             print(messageEnvelope.status)
         }
     }
 }
 
-
 do {
     let devToken = "...";
-    let appBundle = "...";
+    let appBundle = "..";
     
     var message = try Message(deviceToken: devToken, appBundle: appBundle)
     message.alert = .message("Greetings from EasyAPNS notification :)")
@@ -41,11 +42,8 @@ do {
     try easyApns.enqueue(message)
     let unsuccessful = easyApns.sendEnqueuedMessages()
     
-    print("\nUnsuccessful")
+    print("Unsuccessful:")
     dump(unsuccessful)
-    
-    
 } catch {
     print(error)
 }
-

@@ -17,7 +17,6 @@ import Core
  Provide messages sending feedback
  */
 public protocol EasyApnsDelegate: class {
-    
     /**
      - parameter messageEnvelope:MessageEnvelope called after every successfull sending attempt and when retry limit has been exceeded, for feedback when retries limit is yet to be reached check `shouldRetry`
      */
@@ -27,7 +26,6 @@ public protocol EasyApnsDelegate: class {
      - returns:Bool called when sending error occurred and retry limit has not been exceeded - return false to cancel sending. By default attempt to send message again
      */
     func shouldRetry(_ messageEnvelope: MessageEnvelope) -> Bool
-    
 }
 
 public extension EasyApnsDelegate {
@@ -40,7 +38,7 @@ public extension EasyApnsDelegate {
 
 ///  Handling connection with APNS server and messages sending
 public final class EasyApns: cURLConnection {
-    
+
     public enum Error: Swift.Error {
         case `internal`
         
@@ -103,7 +101,7 @@ public final class EasyApns: cURLConnection {
             
             
             let data = encoded.joined(separator: ".")
-            let raw = try signer.sign(data.bytes)
+            let raw = try signer.sign(message: data.bytes)
             let sign = try encoding.encode(raw)
             return "\(data).\(sign)"
         }
@@ -121,30 +119,25 @@ public final class EasyApns: cURLConnection {
         }
     }
     
-    
     private var authMethod: AuthenticationMethod
-    
-    private let logger: Logger
-    
+        
     /**
      messages retry limit in case of sending failure
      */
     public var sendRetryTimes: Int = 1
     
-    
     /**
      microseconds interval to wait after message sending error
      */
     public var retryMicrosecondsInterval: useconds_t = 0
-    
-    
+
     public weak var delegate: EasyApnsDelegate?
     
     public private(set) var messagesQueue = Queue<MessageEnvelope>()
     
     public init(environment: Environment, authenticationMethod: AuthenticationMethod,
-                loggerLevel: LoggerLevel = .error, timeout: Int = 20) {
-        logger = Logger(loggerLevel: loggerLevel)
+                loggerLevel: LoggerLevel = .allEnabled, timeout: Int = 20) {
+        Logger.shared.level = loggerLevel
         authMethod = authenticationMethod
         switch authenticationMethod {
         case .certificate(let path, let keyPath, let passphrase, let caAuthority):
@@ -159,17 +152,17 @@ public final class EasyApns: cURLConnection {
 
     }
     
-    public convenience init(environment: Environment, certificatePath: String, certificateKeyPath: String, caAuthorityPath: String? = nil, loggerLevel: LoggerLevel = .error) {
+    public convenience init(environment: Environment, certificatePath: String, certificateKeyPath: String, caAuthorityPath: String? = nil, loggerLevel: LoggerLevel = .allEnabled) {
         let auth = AuthenticationMethod.certificate(path: certificatePath, keyPath: certificateKeyPath, rawPassphrase: nil, caAuthority: caAuthorityPath)
         self.init(environment: environment, authenticationMethod: auth, loggerLevel: loggerLevel)
     }
     
-    public convenience init(environment: Environment, certificatePath: String, rawCertificatePassphrase: String, caAuthorityPath: String? = nil, loggerLevel: LoggerLevel = .error) {
+    public convenience init(environment: Environment, certificatePath: String, rawCertificatePassphrase: String, caAuthorityPath: String? = nil, loggerLevel: LoggerLevel = .allEnabled) {
         let auth = AuthenticationMethod.certificate(path: certificatePath, keyPath: nil, rawPassphrase: rawCertificatePassphrase, caAuthority: caAuthorityPath)
         self.init(environment: environment, authenticationMethod: auth, loggerLevel: loggerLevel)
     }
     
-    public convenience init(environment: Environment, developerTeamId: String, keyId: String, keyPath: String, loggerLevel: LoggerLevel = .error) throws {
+    public convenience init(environment: Environment, developerTeamId: String, keyId: String, keyPath: String, loggerLevel: LoggerLevel = .allEnabled) throws {
         let auth = try AuthenticationMethod.jwt(JWTData(developerTeamId: developerTeamId, keyId: keyId, keyPath: keyPath))
         self.init(environment: environment, authenticationMethod: auth, loggerLevel: loggerLevel)
     }
@@ -178,8 +171,8 @@ public final class EasyApns: cURLConnection {
      Provide information to standard output about occuring actions
      - parameter val: verbose debug
      */
-    public func logMode(loggerLevel: LoggerLevel) {
-        logger.level = loggerLevel
+    public func setLoggerLevel(_ loggerLevel: LoggerLevel) {
+        Logger.shared.level = loggerLevel
     }
     
     /**
@@ -192,7 +185,6 @@ public final class EasyApns: cURLConnection {
     /**
      - parameter message:Message message to enqueue
      */
-    @discardableResult
     public func enqueue(_ message: Message) throws  {
         try message.validate()
         
@@ -202,8 +194,8 @@ public final class EasyApns: cURLConnection {
             let envelope = MessageEnvelope(singleDeviceTokenMessage, deviceToken: deviceToken)
             messagesQueue.enqueue(envelope)
         }
-        
-        logger.log("Message\(message.customId != nil ? " with customId: \(message.customId!)" : ""), enqueued with \(message.deviceTokens.count) device tokens", type: .info)
+
+        logVerbose("Message\(message.customId != nil ? " with customId: \(message.customId!)," : "") enqueued with \(message.deviceTokens.count) device tokens")
     }
 
     /**
@@ -259,10 +251,8 @@ public final class EasyApns: cURLConnection {
         let res = try request(req)
         
         url = apnsUrl
-        
-        
+
         return res
-        
     }
     
     private func sendAndSetStatus(forMessageEnvelope messageEnvelope: inout MessageEnvelope) -> Bool {
@@ -274,16 +264,16 @@ public final class EasyApns: cURLConnection {
                 
                 if case .successfullySent(let parsedApnsId) = status {
                     if let parsedApnsId = parsedApnsId {
-                        logger.log("Message with id: \(parsedApnsId) successfully sent", type: .info)
+                        logVerbose("Message with id: \(parsedApnsId) successfully sent")
                     } else {
-                        logger.log("Message successfully sent with APNS id parsing error", type: .info)
+                        logVerbose("Message successfully sent, but APNS id parsing error occurred")
                     }
                 } else if case .incorrectCertificate(let badRequest) =  status {
                     // check if needs JWT token refresh
                     if case .jwt(var data) = authMethod {
                         if case .reason(let val) = badRequest {
                             if val == "ExpiredProviderToken" {
-                                logger.log("Provider token expired, requesting refresh", type: .info)
+                                logVerbose("Provider token expired, requesting refresh")
                                 data.needsTokenRefreshing = true
                                 authMethod = .jwt(data)
                                 messagesQueue.enqueue(messageEnvelope)
@@ -310,7 +300,7 @@ public final class EasyApns: cURLConnection {
      - returns:[MessageEnvelope] Envelopes with Messages which have not been successfully sent
      */
     public func sendEnqueuedMessages() -> [MessageEnvelope] {
-        logger.log("Sending started with \(messagesQueue.count) messages to send\n", type: .info)
+        logVerbose("Sending started with \(messagesQueue.count) messages to send\n")
         var unsuccessfull: [MessageEnvelope] = []
         
         while var messageEnvelope = messagesQueue.dequeue() {
@@ -332,15 +322,15 @@ public final class EasyApns: cURLConnection {
                     let messageInfo = "Error sending message with app bundle id: \(messageEnvelope.message.appBundle) to device \(messageEnvelope.deviceToken),"
                     
                     if retryFlag {
-                        logger.log("\(messageInfo) retries left: \(sendRetryTimes - messageEnvelope.retriesCount)", type: .error)
+                        logWarning("\(messageInfo) retries left: \(sendRetryTimes - messageEnvelope.retriesCount)")
                         let innerStatus = messageEnvelope.status
                         messageEnvelope.status = MessageEnvelope.Status.enqueuedForResend(inner: messageEnvelope.status)
-                        logger.log("Enqueued for resend with inner status: \(innerStatus) \n", type: .error)
+                        logWarning("Enqueued for resend with inner status: \(innerStatus) \n")
                         
                         messagesQueue.enqueue(messageEnvelope)
 
                     } else {
-                        logger.log("\(messageInfo) resending cancelled", type: .info)
+                        logDebug("\(messageInfo) resending cancelled")
                         messageEnvelope.retriesCount = sendRetryTimes
                         messageEnvelope.status = MessageEnvelope.Status.resendingCanceled(last: messageEnvelope.status.inner)
                         unsuccessfull.append(messageEnvelope)
@@ -350,8 +340,8 @@ public final class EasyApns: cURLConnection {
                     // retries limit reached
                     messageEnvelope.status = MessageEnvelope.Status.exceededSendingLimit(last: messageEnvelope.status.inner)
                     
-                    logger.log("Message with app bundle id: \(messageEnvelope.message.appBundle) to device \(messageEnvelope.deviceToken)", type: .error)
-                    logger.log("\tFinished sending with error: \(messageEnvelope.status)", type: .error)
+                    logError("Message with app bundle id: \(messageEnvelope.message.appBundle) to device \(messageEnvelope.deviceToken)")
+                    logError("\tFinished sending with error: \(messageEnvelope.status)")
                     
                     unsuccessfull.append(messageEnvelope)
 
@@ -362,10 +352,9 @@ public final class EasyApns: cURLConnection {
                 usleep(retryMicrosecondsInterval)
             } else {
                 delegate?.sendingFeedback(messageEnvelope)
-                
             }
             
-            logger.log("\n\(messagesQueue.count) \(messagesQueue.count == 1 ? "envelope" : "envelopes") left in queue\n\n", type: .info)
+            logVerbose("\(messagesQueue.count) \(messagesQueue.count == 1 ? "envelope" : "envelopes") left in queue\n")
 
         }
         return unsuccessfull
