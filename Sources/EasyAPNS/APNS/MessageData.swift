@@ -10,7 +10,6 @@ import JSON
 
 public extension Message {
     
-    
     /// Message validation errors
     ///
     /// - incorrectDeviceTokenLength: DeviceToken length must be equal to 64
@@ -122,7 +121,5 @@ public extension Message {
                 return alert.encoded()
             }
         }
-        
     }
-
 }

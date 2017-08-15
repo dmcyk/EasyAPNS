@@ -8,14 +8,13 @@
 
 import Foundation
 import Core
-import CLibreSSL
+import CTLS
 
 public enum TokenError: Error {
     case invalidAuthKey
     case invalidTokenString
     case errorCreatingTemporaryKeyFile
     case dataError
-    
 }
 
 extension UnsafeMutablePointer {
@@ -95,9 +94,8 @@ extension String {
             throw TokenError.dataError
         }
         
-        return try (privData.makeBytes(), publicKey)
+        return (privData.makeBytes(), publicKey)
     }
-    
     
     // http://codereview.stackexchange.com/questions/135424/hex-string-to-bytes-nsdata
     func hexToData() -> Data? {
@@ -134,5 +132,4 @@ extension String {
         }
         return data
     }
-
 }

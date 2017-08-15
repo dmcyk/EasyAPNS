@@ -13,6 +13,7 @@ import Foundation
 fileprivate var MessageReason: [String: String] = [
     "BadCollapseId": "The collapse identifier exceeds the maximum allowed size"
 ]
+
 /**
  * Message wrapper in `EasyAPNS` per device token, contains information about sending status of the wrapped message
  */
@@ -60,7 +61,6 @@ public struct MessageEnvelope {
         }
         
         public var rawValue: Int {
-
             switch self {
             case .notSend:
                 return -1
@@ -98,8 +98,7 @@ public struct MessageEnvelope {
                 return -3 
             }
         }
-        
-        
+
         init(response: cURLResponse) {
             var jsonBody: JSON?
             var reason: String?
@@ -159,28 +158,19 @@ public struct MessageEnvelope {
                 self = .unknown(rawResponse: response, parsed: badRequestRes)
             }
         }
-        
     }
-    
     
     public let message: Message
     
-    
     public let deviceToken: String
     
-    
     public internal(set) var status: Status
-    
-    
+
     public internal(set) var retriesCount: Int = 0
-    
     
     public init(_ message: Message, deviceToken: String) {
         self.deviceToken = deviceToken
         self.message = message
         self.status = .notSend
-        
     }
-    
 }
-

@@ -6,7 +6,6 @@
 //
 //
 
-
 extension Queue: Collection {
     public typealias Index = Int
     public var startIndex: Int { return 0 }

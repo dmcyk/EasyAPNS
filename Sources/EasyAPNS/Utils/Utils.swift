@@ -7,7 +7,6 @@
 //
 
 public extension String {
-    
     func among(_ l: String, _ r: String) -> String? {
         guard let lRange = range(of: l), let rRange = range(of: r),
             lRange.upperBound < rRange.lowerBound  else {

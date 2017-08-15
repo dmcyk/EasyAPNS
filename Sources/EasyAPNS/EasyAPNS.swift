@@ -17,7 +17,6 @@ import Core
  Provide messages sending feedback
  */
 public protocol EasyApnsDelegate: class {
-    
     /**
      - parameter messageEnvelope:MessageEnvelope called after every successfull sending attempt and when retry limit has been exceeded, for feedback when retries limit is yet to be reached check `shouldRetry`
      */
@@ -27,7 +26,6 @@ public protocol EasyApnsDelegate: class {
      - returns:Bool called when sending error occurred and retry limit has not been exceeded - return false to cancel sending. By default attempt to send message again
      */
     func shouldRetry(_ messageEnvelope: MessageEnvelope) -> Bool
-    
 }
 
 public extension EasyApnsDelegate {
@@ -40,7 +38,7 @@ public extension EasyApnsDelegate {
 
 ///  Handling connection with APNS server and messages sending
 public final class EasyApns: cURLConnection {
-    
+
     public enum Error: Swift.Error {
         case `internal`
         
@@ -103,7 +101,7 @@ public final class EasyApns: cURLConnection {
             
             
             let data = encoded.joined(separator: ".")
-            let raw = try signer.sign(data.bytes)
+            let raw = try signer.sign(message: data.bytes)
             let sign = try encoding.encode(raw)
             return "\(data).\(sign)"
         }
@@ -121,7 +119,6 @@ public final class EasyApns: cURLConnection {
         }
     }
     
-    
     private var authMethod: AuthenticationMethod
     
     private let logger: Logger
@@ -131,13 +128,11 @@ public final class EasyApns: cURLConnection {
      */
     public var sendRetryTimes: Int = 1
     
-    
     /**
      microseconds interval to wait after message sending error
      */
     public var retryMicrosecondsInterval: useconds_t = 0
-    
-    
+
     public weak var delegate: EasyApnsDelegate?
     
     public private(set) var messagesQueue = Queue<MessageEnvelope>()
@@ -192,7 +187,6 @@ public final class EasyApns: cURLConnection {
     /**
      - parameter message:Message message to enqueue
      */
-    @discardableResult
     public func enqueue(_ message: Message) throws  {
         try message.validate()
         
@@ -259,10 +253,8 @@ public final class EasyApns: cURLConnection {
         let res = try request(req)
         
         url = apnsUrl
-        
-        
+
         return res
-        
     }
     
     private func sendAndSetStatus(forMessageEnvelope messageEnvelope: inout MessageEnvelope) -> Bool {
@@ -362,7 +354,6 @@ public final class EasyApns: cURLConnection {
                 usleep(retryMicrosecondsInterval)
             } else {
                 delegate?.sendingFeedback(messageEnvelope)
-                
             }
             
             logger.log("\n\(messagesQueue.count) \(messagesQueue.count == 1 ? "envelope" : "envelopes") left in queue\n\n", type: .info)
