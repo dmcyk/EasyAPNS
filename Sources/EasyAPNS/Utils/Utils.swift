@@ -38,7 +38,10 @@ public extension String {
             .joined(separator: character)
         }.joined(separator: "\n")
     }
-    
+
+    var bytesCount: Int {
+        return utf8.count
+    }
 }
 
 public extension Array {

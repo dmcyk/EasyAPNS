@@ -110,7 +110,7 @@ public struct Message: JSONRepresentable {
     }
     
     public func validate(deviceToken: String) throws {
-        if strlen(deviceToken) != 64 {
+        if deviceToken.bytesCount != 64 {
             throw Message.ValidationError.incorrectDeviceTokenLength
         }
     }
@@ -126,7 +126,7 @@ public struct Message: JSONRepresentable {
         }
         
         if let collapseId = collapseId {
-            if collapseId.characters.count > 64 {
+            if collapseId.bytesCount > 64 {
                 throw ValidationError.collapseIdTooLarge
             }
         }
@@ -142,7 +142,7 @@ public struct Message: JSONRepresentable {
         }
         
         let jsonString = try json.serialized()
-        if jsonString.characters.count > mode.maximumSize {
+        if jsonString.bytesCount > mode.maximumSize {
             throw ValidationError.payloadTooLarge(maxSize: mode.maximumSize)
         }
         

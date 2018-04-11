@@ -67,7 +67,7 @@ struct Base64URLTranscoder: Base64URLTranscoding {
     }
 
     func base64URLEncode(_ string: String) -> String? {
-        var converted = string.utf8CString.flatMap { char -> CChar? in
+        var converted = string.utf8CString.compactMap { char -> CChar? in
             switch char {
             case 43: // '+'
                 return 45 // '-'

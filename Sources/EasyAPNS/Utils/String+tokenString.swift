@@ -20,11 +20,9 @@ public enum TokenError: Error {
 extension UnsafeMutablePointer {
     
     func buffer(withLength length: Int) -> [Pointee] {
-        var buff = Array<Pointee!>(repeating: nil, count: length)
-        for i in 0 ..< length {
-            buff[i] = self[i]
+        return (0 ..< length).map {
+            self[$0]
         }
-        return buff
     }
 }
 
