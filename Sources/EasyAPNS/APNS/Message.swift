@@ -8,31 +8,6 @@
 import libc
 import Foundation
 
-public protocol CustomMessagePayload: Encodable {
-
-    /// Must be encoded using `aps` key
-    var aps: Message.Payload? { get set }
-}
-
-private extension Encodable {
-
-    func jsonRepresentation() throws -> Data {
-        return try JSONEncoder().encode(self)
-    }
-}
-
-extension CustomMessagePayload {
-
-    public var payloadKey: StaticString {
-        return "aps"
-    }
-}
-
-fileprivate struct DummyCustomPayload: CustomMessagePayload {
-
-    var aps: Message.Payload?
-}
-
 /**
  APNS's message
  */
@@ -92,7 +67,7 @@ public struct Message {
         }
     }
 
-    public var customPayload: CustomMessagePayload? {
+    public var customPayload: Encodable? {
         willSet {
             encodedDataCache = nil
         }
@@ -174,16 +149,28 @@ public struct Message {
             return cache
         }
 
-        let customPayload: CustomMessagePayload = {
-            if var given = self.customPayload {
-                given.aps = payload
-                return given
-            } else {
-                return DummyCustomPayload(aps: payload)
-            }
-        }()
+        struct FinalPayload: Encodable {
 
-        let raw = try customPayload.jsonRepresentation()
+            enum CodingKeys: CodingKey {
+
+                case aps
+            }
+
+            let aps: Payload
+            let custom: Encodable?
+
+            func encode(to encoder: Encoder) throws {
+                // encode custom payload first
+                try custom?.encode(to: encoder)
+
+                // so that `aps` key get's overwritten in case it's been used
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                try container.encode(aps, forKey: .aps)
+            }
+        }
+
+        let final = FinalPayload(aps: payload, custom: customPayload)
+        let raw = try JSONEncoder().encode(final)
         encodedDataCache = raw
         return raw
     }
