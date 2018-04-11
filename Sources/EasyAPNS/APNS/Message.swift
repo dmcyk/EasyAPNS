@@ -9,10 +9,35 @@ import libc
 import JSON
 import Foundation
 
+public protocol CustomMessagePayload: Encodable {
+
+    /// Must be encoded using `aps` key
+    var aps: Message.Payload? { get set }
+}
+
+private extension Encodable {
+
+    func jsonRepresentation() throws -> Data {
+        return try JSONEncoder().encode(self)
+    }
+}
+
+extension CustomMessagePayload {
+
+    public var payloadKey: StaticString {
+        return "aps"
+    }
+}
+
+fileprivate struct DummyCustomPayload: CustomMessagePayload {
+
+    var aps: Message.Payload?
+}
+
 /**
  APNS's message
  */
-public struct Message: JSONRepresentable {
+public struct Message {
     
     public enum Priority: Int {
         case high = 10
@@ -55,33 +80,63 @@ public struct Message: JSONRepresentable {
 
     /// application's bundle id
     public var appBundle: String
-    
+
     /// custom message id, if nil APNS generates id on it's own - given in response
     public var customId: String? = nil
-    
-    public var alert: Alert? = nil
-    
-    public var badge: Int64? = nil
-    
-    public var sound: Sound? = nil
-    
-    /// JSON keys must start with "acme"
-    public var customPayload: [String: JSON] = [:]
-    
-    public var category: String? = nil
-    
-    /// If only this is present in the notification the priority must not be set to high
-    public var contentAvailable: Bool = false
-    
-    public var mutableContent: Bool = false
-    
-    public var threadId: String? = nil
-    
+
     /// From APNS documentation: Multiple notifications with the same collapse identifier are displayed to the user as a single notification. The value of this key must not exceed 64 bytes.
     public var collapseId: String? = nil
-    
-    // 'acme' custom data payload
-    public var custom: [String: JSON] = [:]
+
+    public var payload: Payload = Payload() {
+        willSet {
+            encodedDataCache = nil
+        }
+    }
+
+    public var customPayload: CustomMessagePayload? {
+        willSet {
+            encodedDataCache = nil
+        }
+    }
+
+    private var encodedDataCache: Data?
+
+    // MARK: - Payload mapping
+    public var alert: Alert? {
+        get { return payload.alert }
+        set { payload.alert = newValue }
+    }
+
+    public var badge: Int64? {
+        get { return payload.badge }
+        set { payload.badge = newValue }
+    }
+
+    public var sound: Sound? {
+        get { return payload.sound }
+        set { payload.sound = newValue }
+    }
+
+    public var category: String? {
+        get { return payload.category }
+        set { payload.category = newValue }
+    }
+
+    /// If only this is present in the notification the priority must be set to `low`
+    public var contentAvailable: Bool {
+        get { return payload.contentAvailable }
+        set { payload.contentAvailable = newValue }
+    }
+
+    public var mutableContent: Bool {
+        get { return payload.mutableContent }
+        set { payload.mutableContent = newValue }
+    }
+
+    public var threadId: String? {
+        get { return payload.threadId }
+        set { payload.threadId = newValue }
+    }
 
     /**
      - parameter deviceToken:String single device token to receive message
@@ -114,73 +169,47 @@ public struct Message: JSONRepresentable {
             throw Message.ValidationError.incorrectDeviceTokenLength
         }
     }
+
+    public mutating func encodedData() throws -> Data {
+        if let cache = encodedDataCache {
+            return cache
+        }
+
+        let customPayload: CustomMessagePayload = {
+            if var given = self.customPayload {
+                given.aps = payload
+                return given
+            } else {
+                return DummyCustomPayload(aps: payload)
+            }
+        }()
+
+        let raw = try customPayload.jsonRepresentation()
+        encodedDataCache = raw
+        return raw
+    }
     
     /**
      validate message payload
      */
-    public func validate() throws {
-        for (k, _) in custom {
-            guard k.hasPrefix("acme") else {
-                throw ValidationError.customPayloadIncorrectKey
-            }
-        }
-        
+    @discardableResult
+    public mutating func validate() throws -> Data {
         if let collapseId = collapseId {
             if collapseId.bytesCount > 64 {
                 throw ValidationError.collapseIdTooLarge
             }
         }
-        
-        let json = encoded()
-        
-        if json.object!.keys.count == 1 {
-            if json.object!["aps"].object!.keys.count == 1 && json.object!["aps"].object!.keys.first! == "content-available" {
-                guard priority == .low else {
-                    throw ValidationError.incorrectPriority
-                }
-            }
+
+        let data = try encodedData()
+
+        if payload.contentAvailable && priority != .low {
+            throw ValidationError.incorrectPriority
         }
         
-        let jsonString = try json.serialized()
-        if jsonString.bytesCount > mode.maximumSize {
+        if data.count > mode.maximumSize {
             throw ValidationError.payloadTooLarge(maxSize: mode.maximumSize)
         }
-        
-    }
-    
-    public func encoded() -> JSON {
-        var data = [String: JSON]()
-        if let alert = alert {
-            data["alert"] = alert.encoded()
-        }
-        if let badge = badge {
-            data["badge"] = JSON.integer(badge)
-        }
-        if let sound = sound {
-            data["sound"] = JSON.string(sound.description)
-        }
-        if let category = category {
-            data["category"] = JSON.string(category)
-        }
-        if contentAvailable {
-            data["content-available"] = 1
-        }
-        
-        if mutableContent {
-            data["mutable-content"] = 1
-        }
-        
-        if let threadId = threadId {
-            data["thread-id"] = JSON.string(threadId)
-        }
-        
-        var json = JSON.object(customPayload)
-        json["aps"] = JSON.object(data)
-        
-        for (k, v) in custom {
-            json[k] = v
-        }
 
-        return json
+        return data
     }
 }

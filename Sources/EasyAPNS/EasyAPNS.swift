@@ -185,13 +185,13 @@ public final class EasyApns: cURLConnection {
     /**
      - parameter message:Message message to enqueue
      */
-    public func enqueue(_ message: Message) throws  {
-        try message.validate()
+    public func enqueue(_ message: inout Message) throws  {
+        let messageData = try message.validate()
         
         for deviceToken in message.deviceTokens {
             var singleDeviceTokenMessage = message
             singleDeviceTokenMessage.deviceTokens = [deviceToken]
-            let envelope = MessageEnvelope(singleDeviceTokenMessage, deviceToken: deviceToken)
+            let envelope = MessageEnvelope(singleDeviceTokenMessage, deviceToken: deviceToken, messageData: messageData)
             messagesQueue.enqueue(envelope)
         }
 
@@ -243,9 +243,8 @@ public final class EasyApns: cURLConnection {
             headers["apns-expiration"] = "0"
         }
         
-        let jsonString = try message.serialized()
-        
-        var req = cURLRequest(url: endUrl, method: .post, headers: headers, body: jsonString.data(using: .utf8))
+
+        var req = cURLRequest(url: endUrl, method: .post, headers: headers, body: messageEnvelope.messageData)
         req.contentType = .json
 
         let res = try request(req)

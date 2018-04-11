@@ -25,7 +25,7 @@ class FeedbackCollector: EasyApnsDelegate {
 do {
     let devToken = "...";
     let appBundle = "..";
-    
+
     var message = try Message(deviceToken: devToken, appBundle: appBundle)
     message.alert = .message("Greetings from EasyAPNS notification :)")
     message.badge = 2
@@ -38,8 +38,8 @@ do {
     let collector = FeedbackCollector()
     easyApns.delegate = collector
     
-    try easyApns.enqueue(message)
-    try easyApns.enqueue(message)
+    try easyApns.enqueue(&message)
+    try easyApns.enqueue(&message)
     let unsuccessful = easyApns.sendEnqueuedMessages()
     
     print("Unsuccessful:")

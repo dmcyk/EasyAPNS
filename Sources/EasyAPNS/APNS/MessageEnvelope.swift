@@ -126,13 +126,13 @@ public struct MessageEnvelope {
                 for header in response.headers {
                     if let apnsIdHeaderEntry = strstr(header, "apns-id") {
                         let rawApnsId = apnsIdHeaderEntry.advanced(by: 9)
-                        let apnsLength = header.characters.count - apnsIdHeaderEntry.distance(to: rawApnsId)
+                        let apnsLength = header.count - apnsIdHeaderEntry.distance(to: rawApnsId)
                         let raw = UnsafeMutablePointer<CChar>.allocate(capacity: apnsLength + 1)
                         raw.initialize(from: rawApnsId, count: apnsLength)
                         raw[apnsLength] = 0
                         id = String(cString: rawApnsId)
-                        raw.deinitialize()
-                        raw.deallocate(capacity: apnsLength)
+                        raw.deinitialize(count: apnsLength)
+                        raw.deallocate()
                     }
                 }
                 self = MessageEnvelope.Status.successfullySent(apnsId: id)
@@ -167,9 +167,12 @@ public struct MessageEnvelope {
     public internal(set) var status: Status
 
     public internal(set) var retriesCount: Int = 0
-    
-    public init(_ message: Message, deviceToken: String) {
+
+    let messageData: Data
+
+    init(_ message: Message, deviceToken: String, messageData: Data) {
         self.deviceToken = deviceToken
+        self.messageData = messageData
         self.message = message
         self.status = .notSend
     }
