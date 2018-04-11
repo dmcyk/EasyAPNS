@@ -11,7 +11,6 @@ import libc
 import CCurl
 import Foundation
 import Core
-@_exported import JSON
 
 /**
  Provide messages sending feedback
@@ -68,6 +67,19 @@ public final class EasyApns: cURLConnection {
     
     /// JSON Web Token authentication configuration 
     public struct JWTData {
+
+        struct Claims: Codable {
+
+            let iss: String
+            let iat: Int
+        }
+
+        struct Header: Codable {
+
+            let alg: String
+            let kid: String
+        }
+
         private let jwtHeader: String
         private let signer: ES256
         private(set) var developerTeamId: String
@@ -82,19 +94,17 @@ public final class EasyApns: cURLConnection {
         
             signer = ES256(key: privateKey)
             self.developerTeamId = developerTeamId
-            self.jwtHeader = try encoding.encode(JSON(dictionaryLiteral: ("alg", "ES256"), ("kid", keyId)).serialized().makeBytes())
+            let rawHeader = try JSONEncoder().encode(Header(alg: "ES256", kid: keyId))
+            self.jwtHeader = try encoding.encode(rawHeader.makeBytes())
             
         }
         
         private func generateToken() throws -> String {
-            let timeStamp = Double(Date().timeIntervalSince1970)
+            let timestamp = Int(Date().timeIntervalSince1970)
+
+            let claims = Claims(iss: developerTeamId, iat: timestamp)
             
-            let claims = JSON.object([
-                "iss": developerTeamId.encoded(),
-                "iat": timeStamp.encoded()
-            ])
-            
-            let serialized =  try claims.serialized()
+            let serialized =  try JSONEncoder().encode(claims)
             let claimsEncoded = try encoding.encode(serialized.makeBytes())
             
             let encoded: [String] = [jwtHeader, claimsEncoded]
@@ -270,8 +280,8 @@ public final class EasyApns: cURLConnection {
                 } else if case .incorrectCertificate(let badRequest) =  status {
                     // check if needs JWT token refresh
                     if case .jwt(var data) = authMethod {
-                        if case .reason(let val) = badRequest {
-                            if val == "ExpiredProviderToken" {
+                        if let reason = badRequest?.reason {
+                            if reason == "ExpiredProviderToken" {
                                 logVerbose("Provider token expired, requesting refresh")
                                 data.needsTokenRefreshing = true
                                 authMethod = .jwt(data)

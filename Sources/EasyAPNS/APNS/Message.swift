@@ -6,7 +6,6 @@
 //
 //
 import libc
-import JSON
 import Foundation
 
 public protocol CustomMessagePayload: Encodable {

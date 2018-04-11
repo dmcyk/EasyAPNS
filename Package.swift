@@ -8,7 +8,6 @@ let package = Package(
         .executable(name: "EasyAPNSExample", targets: ["EasyAPNSExample"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/vdka/JSON.git", .upToNextMajor(from: "0.16.3")),
         .package(url: "https://github.com/vapor/crypto.git", .upToNextMajor(from: "2.1.0")),
         .package(url: "https://github.com/dmcyk/SwiftyCurl.git", .upToNextMajor(from: "0.7.0")),
     ],
@@ -16,7 +15,6 @@ let package = Package(
         .target(
             name: "EasyAPNS",
             dependencies: [
-                "JSON", 
                 "Crypto", 
                 "SwiftyCurl"
             ]

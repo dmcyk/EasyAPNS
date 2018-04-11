@@ -6,13 +6,19 @@
 //
 //
 
-import JSON
 import SwiftyCurl
 import Foundation
 
 fileprivate var MessageReason: [String: String] = [
     "BadCollapseId": "The collapse identifier exceeds the maximum allowed size"
 ]
+
+public struct MessageFailureResponse: Codable {
+
+    /// APNS error reason detailed description https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html#//apple_ref/doc/uid/TP40008194-CH11-SW1
+    public var reason: String
+    public var timestamp: Int?
+}
 
 /**
  * Message wrapper in `EasyAPNS` per device token, contains information about sending status of the wrapped message
@@ -31,25 +37,16 @@ public struct MessageEnvelope {
         indirect case resendingCanceled(last: Status)
         
         case successfullySent(apnsId: String?)
-        case incorrectRequest(BadRequestResponse)
-        case incorrectCertificate(BadRequestResponse)
+        case incorrectRequest(MessageFailureResponse?)
+        case incorrectCertificate(MessageFailureResponse?)
         case incorrectPath
         case incorrectRequestMethod
-        case deviceTokenNoLongerActive(lastActiveTimestamp: String?)
+        case deviceTokenNoLongerActive(MessageFailureResponse?)
         case payloadTooLarge
-        case tooManyRequestsForGivenToken(BadRequestResponse)
+        case tooManyRequestsForGivenToken(MessageFailureResponse?)
         case serverInternalError
-        case serverShutdown(BadRequestResponse)
-        case unknown(rawResponse: cURLResponse, parsed: BadRequestResponse)
-        
-        ///
-        ///
-        /// - raw: raw response data - used in case there's an error extracting JSON
-        /// - json: json response data - used when reason couldn't have been extracted
-        /// - reason: APNS error reason detailed description https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html#//apple_ref/doc/uid/TP40008194-CH11-SW1
-        public enum BadRequestResponse {
-            case raw(Data?), json(JSON), reason(String)
-        }
+        case serverShutdown(MessageFailureResponse?)
+        case unknown(rawResponse: cURLResponse, parsed: MessageFailureResponse?)
         
         public var inner: Status {
             switch self {
@@ -100,25 +97,12 @@ public struct MessageEnvelope {
         }
 
         init(response: cURLResponse) {
-            var jsonBody: JSON?
-            var reason: String?
-            var timestamp: String?
-            var badRequestRes: BadRequestResponse = .raw(nil)
+            var failureResponse: MessageFailureResponse? = nil
             if let body = response.rawBody {
-                jsonBody = try? JSON.Parser.parse(body)
-                if let json = jsonBody {
-                    reason = json["reason"].string
-                    if let reason = reason {
-                        badRequestRes = .reason(reason)
-                    } else {
-                        badRequestRes = .json(json)
-                    }
-                    timestamp = json["timestamp"].string
-                } else {
-                    badRequestRes = .raw(body)
+                if let messageResponse = try? JSONDecoder().decode(MessageFailureResponse.self, from: body) {
+                    failureResponse = messageResponse
                 }
             }
-            
             
             switch response.code {
             case 200:
@@ -137,25 +121,25 @@ public struct MessageEnvelope {
                 }
                 self = MessageEnvelope.Status.successfullySent(apnsId: id)
             case 400:
-                self = .incorrectRequest(badRequestRes)
+                self = .incorrectRequest(failureResponse)
             case 403:
-                self = .incorrectCertificate(badRequestRes)
+                self = .incorrectCertificate(failureResponse)
             case 404:
                 self = .incorrectPath
             case 405:
                 self = .incorrectRequestMethod
             case 410:
-                self = .deviceTokenNoLongerActive(lastActiveTimestamp: timestamp)
+                self = .deviceTokenNoLongerActive(failureResponse)
             case 413:
                 self = .payloadTooLarge
             case 429:
-                self = .tooManyRequestsForGivenToken(badRequestRes)
+                self = .tooManyRequestsForGivenToken(failureResponse)
             case 500:
                 self = .serverInternalError
             case 503:
-                self = .serverShutdown(badRequestRes)
+                self = .serverShutdown(failureResponse)
             default:
-                self = .unknown(rawResponse: response, parsed: badRequestRes)
+                self = .unknown(rawResponse: response, parsed: failureResponse)
             }
         }
     }

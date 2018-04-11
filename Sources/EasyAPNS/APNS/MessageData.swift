@@ -6,8 +6,6 @@
 //
 //
 
-import JSON
-
 public extension Message {
     
     /// Message validation errors

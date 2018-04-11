@@ -40,17 +40,17 @@ protocol Encoding {
     func decode(_ : String) throws -> Bytes
     func encode(_ : Bytes) throws -> String
 }
-
-extension Encoding {
-    func decode(_ string: String) throws -> JSON {
-        return try JSON.Parser.parse(string)
-        
-    }
-    
-    func encode(_ value: JSON) throws -> String {
-        return try value.serialized(options: .init(rawValue: 0))
-    }
-}
+//
+//extension Encoding {
+//    func decode(_ string: String) throws -> JSON {
+//        return try JSON.Parser.parse(string)
+//        
+//    }
+//    
+//    func encode(_ value: JSON) throws -> String {
+//        return try value.serialized(options: .init(rawValue: 0))
+//    }
+//}
 
 protocol Signer {
     var name: String { get }
