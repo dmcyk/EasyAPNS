@@ -2,28 +2,23 @@
 import PackageDescription
 
 let package = Package(
-    name: "EasyAPNS",
-    products: [
-        .library(name: "EasyAPNS", type: .dynamic, targets: ["EasyAPNS"]),
-        .executable(name: "EasyAPNSExample", targets: ["EasyAPNSExample"]),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/vapor/crypto.git", .upToNextMajor(from: "2.1.0")),
-        .package(url: "https://github.com/dmcyk/SwiftyCurl.git", .upToNextMajor(from: "1.0.0")),
-    ],
-    targets: [
-        .target(
-            name: "EasyAPNS",
-            dependencies: [
-                "Crypto", 
-                "SwiftyCurl"
-            ]
-        ),
-        .target(
-            name: "EasyAPNSExample",
-            dependencies: [
-                "EasyAPNS"
-            ]
-        ),
-    ]
+  name: "EasyAPNS",
+  products: [
+    .library(name: "EasyAPNS", type: .dynamic, targets: ["EasyAPNS"]),
+    .executable(name: "EasyAPNSExample", targets: ["EasyAPNSExample"]),
+  ],
+  dependencies: [
+    .package(
+      url: "https://github.com/vapor/crypto.git",
+      .upToNextMajor(from: "2.1.0")
+    ),
+    .package(
+      url: "https://github.com/dmcyk/SwiftyCurl.git",
+      .upToNextMajor(from: "1.0.0")
+    ),
+  ],
+  targets: [
+    .target(name: "EasyAPNS", dependencies: ["Crypto", "SwiftyCurl"]),
+    .target(name: "EasyAPNSExample", dependencies: ["EasyAPNS"]),
+  ]
 )
