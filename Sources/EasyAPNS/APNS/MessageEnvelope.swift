@@ -84,19 +84,10 @@ public struct MessageEnvelope {
       switch response.code {
       case 200:
         var id: String?
+        let apnsStart = "apns-id: "
         for header in response.headers {
-          if let apnsIdHeaderEntry = strstr(header, "apns-id") {
-            let rawApnsId = apnsIdHeaderEntry.advanced(by: 9)
-            let apnsLength = header.count
-              - apnsIdHeaderEntry.distance(to: rawApnsId)
-            let raw = UnsafeMutablePointer<CChar>.allocate(
-              capacity: apnsLength + 1
-            )
-            raw.initialize(from: rawApnsId, count: apnsLength)
-            raw[apnsLength] = 0
-            id = String(cString: rawApnsId)
-            raw.deinitialize(count: apnsLength)
-            raw.deallocate()
+          if header.starts(with: apnsStart) {
+            id = String(header.dropFirst(apnsStart.count))
           }
         }
         self = MessageEnvelope.Status.successfullySent(apnsId: id)

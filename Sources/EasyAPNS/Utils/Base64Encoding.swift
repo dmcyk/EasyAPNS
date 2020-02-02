@@ -5,8 +5,7 @@
 //  Created by damian.malarczyk on 15.08.2017.
 //
 
-import Core
-import Crypto
+import OpenCrypto
 import Foundation
 
 struct Base64URLEncoding: Encoding {
@@ -18,21 +17,21 @@ struct Base64URLEncoding: Encoding {
     self.base64URLTranscoder = base64URLTranscoder
   }
 
-  func encode(_ bytes: Bytes) throws -> String {
+  func encode(_ bytes: Data) throws -> String {
     guard
       let base64URL = base64URLTranscoder.base64URLEncode(
-        bytes.base64Encoded.makeString()
+        bytes.base64EncodedString()
       )
     else { throw JWTError.encoding }
     return base64URL
   }
 
-  func decode(_ base64URLEncoded: String) throws -> Bytes {
+  func decode(_ base64URLEncoded: String) throws -> Data {
     guard
       let base64Encoded = base64URLTranscoder.base64Encode(base64URLEncoded),
-        let data = Data(base64Encoded: base64Encoded)
+      let data = Data(base64Encoded: base64Encoded)
     else { throw JWTError.decoding }
-    return data.makeBytes()
+    return data
   }
 }
 

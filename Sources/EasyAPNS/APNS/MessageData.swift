@@ -13,7 +13,7 @@ public extension Message {
   /// - payloadTooLarge: PayLoad size must be less or equal than 4096 bytes in case of regular notifications and 5120 bytes for VOIP
   /// - incorrectPriority: If the notification contains only content-available key and no other, only low priority is allowed
   /// - collapseIdTooLarge: Maximum size of collapse id is 64 bytes
-  public enum ValidationError: Swift.Error {
+  enum ValidationError: Swift.Error {
     case incorrectDeviceTokenLength
     case payloadTooLarge(maxSize: Int)
     case incorrectPriority
@@ -22,7 +22,7 @@ public extension Message {
   /**
      APNS's message sound representation
      */
-  public enum Sound: CustomStringConvertible {
+  enum Sound: CustomStringConvertible {
     case `default`, custom(String)
     public var description: String {
       switch self {
@@ -34,7 +34,7 @@ public extension Message {
   /**
      Wrapper to handle APNS's alerts
      */
-  public enum Alert: Codable {
+  enum Alert: Codable {
     /**
          Detailed APNS's alert representation
          */
@@ -102,7 +102,7 @@ public extension Message {
     }
   }
 
-  public struct Payload: Encodable {
+  struct Payload: Encodable {
 
     enum CodingKeys: String, CodingKey {
 

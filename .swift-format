@@ -4,5 +4,5 @@
     "spaces": 2
   },
   "lineBreakBeforeControlFlowKeywords": false,
-  "respectsExistingLineBreaks": false
+  "respectsExistingLineBreaks": true
 }

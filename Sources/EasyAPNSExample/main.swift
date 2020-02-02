@@ -21,24 +21,29 @@ class FeedbackCollector: EasyApnsDelegate {
 }
 
 do {
-  let devToken = "...";
+  let devToken = ".."
   let appBundle = "..";
 
   var message = try Message(deviceToken: devToken, appBundle: appBundle)
   message.alert = .message("Greetings from EasyAPNS notification :)")
   message.badge = 2
+
   // JWT 
   let easyApns = try EasyApns(
     environment: .development,
-    developerTeamId: "...",
-    keyId: "...",
-    keyPath: "..."
+    developerTeamId: "..",
+    keyId: "..",
+    keyPath: ".."
   )
+
+  // certificate
   //    let easyApns = EasyApns(environment: .development, certificatePath: "...", rawCertificatePassphrase: "...", caAuthorityPath: "...")
+
   let collector = FeedbackCollector()
   easyApns.delegate = collector
   try easyApns.enqueue(&message)
   try easyApns.enqueue(&message)
+
   let unsuccessful = easyApns.sendEnqueuedMessages()
   print("Unsuccessful:")
   dump(unsuccessful)

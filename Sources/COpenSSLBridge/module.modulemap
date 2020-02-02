@@ -1,0 +1,7 @@
+
+module COpenSSLBridge [system] {
+    link "ssl"
+    link "crypto"
+    header "shim.h"
+    export *
+}

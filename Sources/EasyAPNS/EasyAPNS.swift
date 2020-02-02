@@ -10,7 +10,6 @@ import SwiftyCurl
 import libc
 import CCurl
 import Foundation
-import Core
 
 /**
  Provide messages sending feedback
@@ -73,7 +72,7 @@ public final class EasyApns: cURLConnection {
     private let signer: ES256
     private(set) var developerTeamId: String
     private let encoding = Base64URLEncoding()
-    private let keyPathToken: (privateKey: Bytes, publicKey: Bytes?)
+    private let keyPathToken: (privateKey: Data, publicKey: Data?)
     fileprivate var needsTokenRefreshing = true
     private var previousToken: String? = nil
     public init(developerTeamId: String, keyId: String, keyPath: String) throws
@@ -83,19 +82,19 @@ public final class EasyApns: cURLConnection {
       signer = ES256(key: privateKey)
       self.developerTeamId = developerTeamId
       let rawHeader = try JSONEncoder().encode(Header(alg: "ES256", kid: keyId))
-      self.jwtHeader = try encoding.encode(rawHeader.makeBytes())
+      self.jwtHeader = try encoding.encode(rawHeader)
     }
     private func generateToken() throws -> String {
       let timestamp = Int(Date().timeIntervalSince1970)
 
       let claims = Claims(iss: developerTeamId, iat: timestamp)
       let serialized = try JSONEncoder().encode(claims)
-      let claimsEncoded = try encoding.encode(serialized.makeBytes())
+      let claimsEncoded = try encoding.encode(serialized)
       let encoded: [String] = [jwtHeader, claimsEncoded]
-      let data = encoded.joined(separator: ".")
-      let raw = try signer.sign(message: data.bytes)
+      let dataString = encoded.joined(separator: ".")
+      let raw = try signer.sign(message: dataString.convertToData())
       let sign = try encoding.encode(raw)
-      return "\(data).\(sign)"
+      return "\(dataString).\(sign)"
     }
     fileprivate mutating func header() throws -> (String, String) {
       let token: String
